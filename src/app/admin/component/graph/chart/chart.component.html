@@ -1,0 +1,138 @@
+
+
+  
+        <!-- <div class="col-2">
+            <div class="btnrptcontainer">
+                <mat-expansion-panel class="left-panle">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Chart</mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button class="button-panle">
+                        Chart
+                      </button>
+                      <button class="button-panle" (click)="chartData()">
+                        Chart Data
+                      </button>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="left-panle">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Details</mat-panel-title>
+                      </mat-expansion-panel-header>
+                    <button class="button-panle" *ngIf="arrlength >= 1" (click)="oneitem()">
+                        1 Item
+                    </button>
+                    <button class="button-panle" *ngIf="arrlength >= 2" (click)="twoitem()">
+                        2 Items
+                    </button>
+                    <button class="button-panle" *ngIf="arrlength >= 3" (click)="threeitem()">
+                        3 Items
+                    </button>
+                    <button class="button-panle" *ngIf="arrlength >= 4" (click)="fouritem()">
+                        4 Items
+                    </button>
+                    <button class="button-panle" *ngIf="arrlength >= 5" (click)="fiveitem()">
+                        5 Items
+                    </button>
+                    <button class="button-panle" *ngIf="arrlength >= 6" (click)="sixitem()">
+                        6 Items
+                    </button>
+                    <button class="button-panle" *ngIf="arrlength >= 7" (click)="sevenitem()">
+                        7 Items
+                    </button>
+                    <button class="button-panle" *ngIf="arrlength >= 8" (click)="eightitem()">
+                        8 Items
+                    </button>
+                    <button class="button-panle" (click)="count()">
+                        Count
+                    </button>
+                </mat-expansion-panel>
+                
+                <mat-expansion-panel class="left-panle">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Save</mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button class="btn btn-primary m-1" (click)="savereport()" style="background: #60a1e5;">
+                        Save
+                    </button>
+                </mat-expansion-panel>
+            </div>
+        </div> -->
+        <!-- <div class="col-10 table-body">
+          
+        </div> -->
+        <div class="card">
+            <div class="card-body">
+                <div style="padding-bottom: 12px;">
+                    <label class="small-title" style="text-align: center;">Chart</label>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas baseChart #barchart id="ctx"
+                    [datasets]="barChartData1"
+                    [labels]="barChartLabels1"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [type]="barChartType">
+                  </canvas>
+                </div>
+            </div>
+        </div>
+    
+
+    <!-- <div class="col-12 col-lg-12">
+        <div class="row">
+            <div class="btnrptcontainer">
+                <button class="btn btn-primary m-1" *ngIf="arrlength >= 1" (click)="oneitem()">
+                    1 Item
+                </button>
+                <button class="btn btn-primary m-1" *ngIf="arrlength >= 2" (click)="twoitem()">
+                    2 Items
+                </button>
+                <button class="btn btn-primary m-1" *ngIf="arrlength >= 3" (click)="threeitem()">
+                    3 Items
+                </button>
+                <button class="btn btn-primary m-1" *ngIf="arrlength >= 4" (click)="fouritem()">
+                    4 Items
+                </button>
+                <button class="btn btn-primary m-1" *ngIf="arrlength >= 5" (click)="fiveitem()">
+                    5 Items
+                </button>
+                <button class="btn btn-primary m-1" *ngIf="arrlength >= 6" (click)="sixitem()">
+                    6 Items
+                </button>
+                <button class="btn btn-primary m-1" *ngIf="arrlength >= 7" (click)="sevenitem()">
+                    7 Items
+                </button>
+                <button class="btn btn-primary m-1" *ngIf="arrlength >= 8" (click)="eightitem()">
+                    8 Items
+                </button>
+                <button class="btn btn-primary m-1" (click)="chartData()">
+                    Chart Data
+                </button>
+                <button class="btn btn-primary m-1" (click)="count()">
+                    Count
+                </button>
+                <button class="btn btn-primary m-1" (click)="savereport()">
+                    Save
+                </button>
+            </div>
+        </div>
+        <div style="padding-bottom: 12px;">
+            <label class="small-title" style="text-align: center;">Chart</label>
+        </div>
+        <div class="card mb-5 col-lg-8 col-sm-8 col-xm-8">
+            <div class="card-body">
+                <div class="chart-wrapper">
+                    <canvas baseChart #barchart id="ctx"
+                    [datasets]="barChartData1"
+                    [labels]="barChartLabels1"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [type]="barChartType">
+                  </canvas>
+                </div>
+            </div>
+        </div>
+    </div> -->

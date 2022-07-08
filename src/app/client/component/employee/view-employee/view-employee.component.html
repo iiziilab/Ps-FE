@@ -1,0 +1,63 @@
+<main>
+    <div class="fluid-container">
+        <div class="row">
+            <app-sidebar class="col-auto side-menu-container" [toggle]='toggle'></app-sidebar>
+            <div class="col">
+                <div class="page-title-container">
+                    <div class="row">
+                        <button class="col-auto toggle-menu" (click)="togglemenuclick()">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+                        </button>
+                        <div class="col-12 col-md-7">
+                            <h1 class="mb-1 pb-0 display-4" id="title">Client</h1>
+                            <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                                <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                                    <li class="breadcrumb-item"><a routerLink="/client/dashboard">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a routerLink="/client/employee/list">Employee</a></li>
+                                    <li class="breadcrumb-item"><a routerLink="/client/employee/view">View</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-lg-12">
+                    <div style="padding-bottom: 12px;">
+                        <label class="small-title">Employee Details</label>
+                        <!-- <button type="button" class="btn btn-lg btn-primary mb-2" style="float: right;" (click)="onAddClient()">Add Client</button> -->
+                    </div>
+                    <div class="col-12 col-lg-12">
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <div class="row g-3 tooltip-end-top">
+                                    <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">Name :</label>
+                                        <label for="name" class="form-label col-md-8">{{name}}</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">Email :</label>
+                                        <label for="email" class="form-label col-md-8">{{email}}</label>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">Contact :</label>
+                                        <label for="contact" class="form-label col-md-8">{{contact}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btncenter">
+                        <button class="btn btn-primary m-1" routerLink="/client/employee/list" style="font-size: 16px;">
+                            Back to List
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<app-layout></app-layout>

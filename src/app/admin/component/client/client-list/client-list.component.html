@@ -1,0 +1,137 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Client</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/client/list">Client</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row cart-list">
+        <div class="card mb-2">
+            <div class="card-body h-100">
+                <div class="col-12 col-lg-12">
+                    <div style="padding-bottom: 12px;">
+                        <label class="small-title">Clients List</label>
+                        <button type="button" class="btn btn-primary" style="float: right;font-size: 16px;"
+                            (click)="onAddClient()">Add Client</button>
+                    </div>
+
+                    <div class="row" style="width: 100%;">
+                        <div class="col-lg-12 col-xs-12">
+                            <table mat-table [dataSource]="dataSource">
+                                <tr class="mat-row text-center mt-2" *matNoDataRow>
+                                    <td class="mat-cell" colspan="9999">
+                                        <h4>No records found</h4>
+                                    </td>
+                                  </tr>
+                                <ng-container matColumnDef="Sr.No">
+                                    <th mat-header-cell *matHeaderCellDef width="10%"> SN. </th>
+                                    <td mat-cell *matCellDef="let element;let i = index">{{ (currentPage *
+                                        pageSize) + (i +1) }}
+                                    </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="Name">
+                                    <th mat-header-cell *matHeaderCellDef width="20%"> 
+                                        Name 
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <button type="button" class="btn-popup" (click)="openPopup(element)">{{ element.name }}</button>
+                                    </td>
+                                </ng-container>
+    
+                                <!-- <ng-container matColumnDef="Email">
+                                    <th mat-header-cell *matHeaderCellDef width="25%"> Email </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                                </ng-container> -->
+    
+                                <ng-container matColumnDef="Address">
+                                    <th mat-header-cell *matHeaderCellDef width="35%"> Address </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="Action">
+                                    <th mat-header-cell *matHeaderCellDef width="10%"> Action </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a (click)="onView(element)" class="link" data-toggle="tooltip" data-placement="top"
+                                            title="View client details"><i class="fa fa-eye" style="color: #000;;"></i></a>
+                                        |
+                                        <a (click)="onEdit(element)" class="link" data-toggle="tooltip" data-placement="top"
+                                            title="Edit client details"><i class="fa fa-edit"
+                                                style="color: #22a6e9;;"></i></a> |
+                                        <a (click)="onDeleteSelected(element)" class="link"><i class="fa fa-trash-o"
+                                                style="color: red"></i> </a>
+                                    </td>
+                                </ng-container>
+    
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    (click)="selectedRow = selectedRow === row ? null : row"
+                                    [ngClass]="{ 'selected': row == selectedRow }" (click)="highlight()">
+                                </tr>
+                            </table>
+    
+                            <!-- <div class="text-center mt-2" *ngIf="clientDTO?.length === 0">
+                                <h4>No records found</h4>
+                            </div> -->
+                            
+                            <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
+                                [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage"
+                                (page)="handlePage($event)" [hidden]="!clientDTO?.length">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="small-title">Employee Details</h4>
+      </div>
+      <div class="modal-body">
+        <div class="card mb-5">
+            <div class="card-body">
+                <div *ngFor="let emp of employee; let i = index" class="row g-3 tooltip-end-top">
+                    <label class="emplabel">Employee {{i+1}}</label>
+                    <div class="col-md-4">
+                        <label class="form-label col-md-3 viewlabel">Name :</label>
+                        <label for="name" class="form-label col-md-9">{{emp.name}}</label>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label col-md-2 viewlabel">Email :</label>
+                        <label for="name" class="form-label col-md-10">{{emp.email}}</label>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label col-md-4 viewlabel">Contact :</label>
+                        <label for="email" class="form-label col-md-8">{{emp.contactNo === '' ? 'N/A' : emp.contactNo}}</label>
+                    </div>
+                        <mat-divider class="mb-2"></mat-divider>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" 
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

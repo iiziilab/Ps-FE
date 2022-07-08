@@ -1,0 +1,92 @@
+<!-- <app-loader *ngIf="loading">{{ loading }}</app-loader> -->
+<div class="col">
+    <!-- <div class="page-title-container">
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Project</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">{{pName}}</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="listLink">Cell</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="modeltitleurl">Upload</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="col-12 col-lg-12">
+        <div class="row">
+            <h5 style="display: flex; justify-content: end;">Sample Excel File, you can check the sample excel here <a
+                    (click)="generateExcel()" class="excelbtn"> Export Excel</a> </h5>
+        </div>
+        <div style="padding-bottom: 12px;">
+            <label class="small-title" style="text-align: center;">Upload Alternative File in Excel format</label>
+        </div>
+        <div class="card mb-5 centercard">
+            <div class="card-body">
+                <form class="row g-3 tooltip-end-top" [formGroup]="modelform" novalidate autocomplete="off">
+                    <div class="mb-n2" id="accordionCardsExample">
+                        <!-- <div class="card d-flex mb-2"> -->
+                            <!--<div class="d-flex flex-grow-1" role="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOneCards" aria-expanded="true"
+                                aria-controls="collapseOneCards">
+                                <div class="card-body py-4">
+                                    <div class="btn btn-link list-item-heading p-0">Upload Menu</div>
+                                </div>
+                        </div> -->
+                            <!-- <div id="collapseOneCards" class="collapse show" data-bs-parent="#accordionCardsExample"> -->
+                                <div class="card-body accordion-content pt-0">
+                                    <div class="filledcontrol mb-3">
+                                        <label for="pic" class="form-label">Upload Excel File </label>
+                                        <input type="file"
+                                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                            class="form-control" id="pic" (change)="onFileChange($event)"
+                                            [class.is-invalid]="f.pic.invalid && f.pic.untouched && show" formControlName="pic">
+                                        <div *ngIf="f.pic.invalid && f.pic.untouched && show">
+                                            <small *ngIf="f.pic.errors?.required" class="text-danger">Please select the file.</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2 col-1 mx-auto">
+                                        <button class="btn btn-primary" (click)="uploadfile($event)">Save</button>
+                                    </div>
+                                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                                </div>
+                            <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- <div class="card d-flex mb-2">
+                            <div class="d-flex flex-grow-1" role="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwoCards" aria-expanded="true"
+                                aria-controls="collapseTwoCards">
+                                <div class="card-body py-4">
+                                    <div class="btn btn-link list-item-heading p-0">Upload file for calculation</div>
+                                </div>
+                            </div>
+                            <div id="collapseTwoCards" class="collapse" data-bs-parent="#accordionCardsExample">
+                                <div class="card-body accordion-content pt-0">
+                                    <div class="filledcontrol mb-3">
+                                        <label for="mpic" class="form-label">Upload Multiple File </label>
+                                        <input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                            multiple class="form-control" id="mpic" (change)="onChange($event)" formControlName="mpic"
+                                            [class.is-invalid]="f.mpic.invalid && f.mpic.untouched && lshow">
+                                        <div *ngIf="f.mpic.invalid && f.mpic.untouched && lshow">
+                                            <small *ngIf="f.mpic.errors?.required" class="text-danger">Please select the file.</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2 col-1 mx-auto">
+                                        <button class="btn btn-primary" (click)="uploadMfile($event)">
+                                            <i class="fa fa-spinner fa-spin" *ngIf="loading"></i><span class="btntext">Save</span></button>
+                                    </div>
+                
+                                    <div *ngIf="lmessage" class="alert alert-success mt-3 mb-0">{{lmessage}}</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

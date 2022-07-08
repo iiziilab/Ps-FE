@@ -1,0 +1,81 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Project</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">{{pName}}</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/view">View</a></li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-lg-12">
+        <div style="padding-bottom: 12px;">
+            <label class="small-title">Project Details</label>
+            <button type="button" class="btn btn-primary mb-2" style="float: right;font-size: 16px;"
+                (click)="onAddProject()">Add Project</button>
+        </div>
+        <div class="col-12 col-lg-12">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <div class="row g-3 tooltip-end-top">
+                        <div class="col-md-6">
+                            <label class="form-label col-md-4 viewlabel">Project Name :</label>
+                            <label for="projectName" class="form-label col-md-8">{{projectName}}</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label col-md-4 viewlabel">Project Number :</label>
+                            <label for="projectNo" class="form-label col-md-8">{{projectNo}}</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label col-md-4 viewlabel">Client :</label>
+                            <label for="client" class="form-label col-md-8">{{client}}</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label col-md-4 viewlabel">Employee : </label>
+                            <label for="employee" class="form-label col-md-8">{{employee}}</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label col-md-4 viewlabel">Start Date :</label>
+                            <label for="startDate" class="form-label col-md-8">{{startDate | date:
+                                "shortDate"}}</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label col-md-4 viewlabel">End Date :</label>
+                            <label for="endDate" class="form-label col-md-8">{{endDate | date:"shortDate"}}</label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label col-md-4 viewlabel"> Status :</label>
+                            <label for="status" class="form-label col-md-8">{{status}}</label>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <label class="form-label col-md-2 viewlabel">Description : </label>
+                            <label for="description" class="form-label col-md-10">{{description === "" ? 'N/A' : description}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btncenter">
+            <button class="btn btn-primary m-1" routerLink="/admin/project/list" style="font-size: 16px;">
+                Back to List
+            </button>
+        </div>
+    </div>
+</div>

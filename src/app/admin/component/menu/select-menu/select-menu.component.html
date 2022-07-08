@@ -1,0 +1,177 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Menu</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">{{ pName }}</a></li>
+                       
+                        <li class="breadcrumb-item"><a [routerLink]="listLink">{{ cellName }}</a></li>
+                        <!-- <li class="breadcrumb-item"><a [routerLink]="modeltitleurl">Menu</a></li> -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-lg-12">
+        <div class="row">
+            <div class="headcell">
+                <mat-form-field appearance="fill">
+                    <mat-label> Select Model
+                        <!-- <i class="fa fa-compass" aria-hidden="true"></i> -->
+                    </mat-label>
+                    <mat-select  [(value)]="selectedCell" (selectionChange)="onCellChange($event)">
+                          <!-- <mat-option>Select Model</mat-option> -->
+                          <mat-option *ngFor="let p of cellList" [value]="p.cellId">
+                                         {{ p.cellName }}
+                          </mat-option>
+                     </mat-select>
+               </mat-form-field>
+               <button mat-stroked-button (click)="onConfiguration()">Configuration</button>
+               <button mat-stroked-button (click)="onOptimized()">Optimization</button>
+               <!-- <button mat-stroked-button>How To Use</button> -->
+               <button mat-stroked-button>Quick Optimization </button>
+               <button mat-stroked-button (click)="onInteractive()">Interactive</button>
+            </div>
+
+            <!-- <div class="headbody col-7">
+                <mat-form-field appearance="fill">
+                    <mat-label>View Groups</mat-label>
+                    <mat-select [(value)]="selectedviewgroup">
+                        <mat-option value="Reset" (click)="$event ? masterViewGroupReset() : null">Reset</mat-option>
+                        <mat-option value="Show Selected" (click)="$event ? masterViewGroupSelected() : null">Show
+                            Selected</mat-option>
+                        <mat-option value="Expand/Collapse Groups"
+                            (click)="$event ? masterExpandCollapseGroups() : null">Expand/Collapse Groups</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Consideration Set</mat-label>
+                    <mat-select [(value)]="selectedConsolidation" (selectionChange)="onConsolidationChange($event)">
+                        <mat-option value="Default">Default</mat-option>
+                        <mat-option value="Select">Select</mat-option>
+                        <mat-option value="Unselect">Unselect</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Force Into Results</mat-label>
+                    <mat-select [(value)]="selectedforce" (selectionChange)="onIncludeChange($event)">
+                        <mat-option value="Select">Select</mat-option>
+                        <mat-option value="Unselect">Unselect</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button (click)="generateExcel()" class="excelbtn"> Export Excel</button>
+            </div> -->
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div>
+                <label for="threshold" class="form-label">MD Threshold :</label>
+                <input class="form-control input-cell" style="height: 30px;" [value]="threshold" type="number" (keyup)="setThreshold($event)">
+            </div>
+        </div>
+
+        <!-- <div class="row pb-2">
+            <div class="col-md-3">
+                <label for="threshold" class="form-label p-1">MD Threshold :</label>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" style="height: 30px;" [value]="threshold" type="number" (keyup)="setThreshold($event)">
+            </div>
+            <div class="headbody col-md-7">
+                <input class="form-control" (keyup)="applyFilter($event)" placeholder ="enter text to search" type="text" >
+            </div>
+             <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput placeholder="Search columns"  #input>
+            </mat-form-field>
+        </div> -->
+
+        <div class="row">
+            <div class="col-lg-3 left-side">
+                <mat-expansion-panel class="left-panle" [expanded]="isFirst">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> View Groups </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button class="button-panle" (click)="$event ? masterViewGroupReset() : null">Reset</button>
+                      <button class="button-panle" (click)="$event ? masterViewGroupSelected() : null">Show Selected</button>
+                      <button class="button-panle" (click)="$event ? masterExpandCollapseGroups() : null">Expand/Collapse Groups</button>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="left-panle" [expanded]="isSecond">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Consideration Set </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button class="button-panle" (click)="onConsolidationClick('Default')">Default</button>
+                      <button class="button-panle" (click)="onConsolidationClick('Select')">Select</button>
+                      <button class="button-panle" (click)="onConsolidationClick('Unselect')">Unselect</button>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="left-panle" [expanded]="isThrid">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Force Into Results </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button class="button-panle" (click)="onIncludeClick('Select')">Select</button>
+                      <button class="button-panle" (click)="onIncludeClick('Unselect')">Unselect</button>
+                </mat-expansion-panel>
+
+                <!-- <mat-expansion-panel class="left-panle">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Export </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button (click)="generateExcel()" class="excelbtn"> Export Excel</button>
+                </mat-expansion-panel> -->
+            </div>
+            <div class="col-lg-9 cart-height">
+                <div class="card mb-5" #TABLE>
+                    <table class="table table-hover table-responsive-xl">
+                        <thead *ngIf="!showHeader"
+                            style="color: rgba(0,0,0,.54);font-family: Roboto, 'Helvetica Neue', sans-serif !important;">
+                            <th style="width:20%"> Consideration Set </th>
+                            <th style="width:20%"> Force Into Results </th>
+                            <th style="width:60%"> Item </th>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let data of category; let i = index">
+                                <tr>
+                                    <td colspan="3"> <button *ngIf="data[i].category != null" class="expandable-btn"
+                                            (click)="data[i].isExpanded = !data[i].isExpanded"><span class="material-icons">
+                                                {{ data[i].isExpanded == true ? 'chevron_right' : 'expand_more'
+                                                }}</span></button> {{data[i].category}} </td>
+                                </tr>
+                                <ng-container *ngIf="!data[i].isExpanded">
+                                    <tr *ngFor="let details of findDetails(data[i]);  let j = index">
+                                        <td *ngIf="details.category != null">
+                                            <mat-checkbox (change)="chkConsolidation($event,details)"
+                                                [checked]="details.consideration" style="padding-left: 25px">
+                                            </mat-checkbox>
+                                        </td>
+                                        <!--
+                                             <td *ngIf="details.category != null">
+                                            <mat-checkbox (change)="chkInclude($event,details)" [checked]="details.include">
+                                            </mat-checkbox>
+                                        </td> 
+                                    -->
+                                        <td *ngIf="details.category != null">
+                                            <mat-checkbox (change)="chkForcedIn($event,details)" [checked]="details.forcedIn" style="padding-left: 25px">
+                                            </mat-checkbox>
+                                        </td>
+                                        <td style="padding-left: 12px"> {{details.shortDescription}} </td>
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="btncenter">
+        </div>
+    </div>
+</div>

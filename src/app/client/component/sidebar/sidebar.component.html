@@ -1,0 +1,12 @@
+<div [ngClass]="{'togglesidebar': toggle}">
+    <br>
+    <a id="btndashboard" *ngIf="!toggle" routerLink="/client/dashboard" routerLinkActive="pctive"
+        [routerLinkActiveOptions]="{ exact: true }" class="sidebar-link sidebar-menu"
+        >Dashboard</a>
+    <a id="btnclient" *ngIf="!toggle" routerLink="/client/employee/list" routerLinkActive="pctive"
+        [routerLinkActiveOptions]="{ exact: true }" class="sidebar-link sidebar-menu"
+        >Employee</a>
+    <a id="btnproject" *ngIf="!toggle" routerLink="/client/project/list" routerLinkActive="pctive"
+        [routerLinkActiveOptions]="{ exact: true }" class="sidebar-link sidebar-menu"
+        >Project</a>
+</div>

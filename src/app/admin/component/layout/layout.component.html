@@ -1,0 +1,19 @@
+<app-header (images) = "images"></app-header>
+<main>
+    <div class="fluid-container">
+        <div class="row">
+            <app-sidebar class="col-auto side-menu-container" [msgFromParent1]='toggle'></app-sidebar>
+            <button class="col-auto toggle-menu" (click)="togglemenuclick()">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+            </button>
+            <div class="col">
+                <div class="main-root">
+                    <router-outlet (activate)="this.onActivate()"></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<app-footer></app-footer>
+
+<!-- main-content -->

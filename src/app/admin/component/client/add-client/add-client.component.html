@@ -1,0 +1,392 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Client</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/client/list">Client</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="clienttitleurl">{{clienttitle}}</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="pt-2 pb-2">
+                <label class="small-title" style="text-align: center;">Add company information here!</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-12 client-body">
+        
+        <div class="card mb-5">
+            <div class="card-body">
+                <form class="row g-3 tooltip-end-top" [formGroup]="clientbasicform" novalidate autocomplete="off">
+                    <div class="col-md-6 filledcontrol">
+                        <label for="name" class="form-label">Name :<span required class="required-asterisk"
+                                [formGroup]="clientbasicform" [controlName]="'name'"></span></label>
+                        <input class="form-control" placeholder="Please enter the name" formControlName="name"
+                            [class.is-invalid]="f.name.invalid && (f.name.touched || (show && f.name.untouched))"
+                            name="name">
+                        <div *ngIf="f.name.invalid && (f.name.touched || (show && f.name.untouched))">
+                            <small *ngIf="f.name.errors?.required" class="text-danger">Name is required</small>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6 filledcontrol">
+                        <label for="email" class="form-label">Email :<span required class="required-asterisk"
+                                [formGroup]="clientbasicform" [controlName]="'email'"></span></label>
+                        <input class="form-control" type="email" placeholder="Please enter the email"
+                            formControlName="email" name="email"
+                            [class.is-invalid]="f.email.invalid  && (f.email.touched || (show && f.email.untouched))"
+                            (keyup)="copyemail($event)">
+                        <div *ngIf="f.email.invalid  && (f.email.touched || (show && f.email.untouched))">
+                            <small *ngIf="f.email.errors?.required" class="text-danger">Email is
+                                required</small>
+                            <small class="text-danger" *ngIf="f.email.errors?.email">Email address is
+                                invalid</small>
+                        </div>
+                    </div> -->
+
+                     <!-- :<span required class="required-asterisk"
+                                [formGroup]="clientbasicform" [controlName]="'contact1'"></span> -->
+                        <!-- <input type="text" class="form-control" id="contact1" placeholder="Please enter the contact 1"
+                            (keypress)="keyPressNumbers($event)" formControlName="contact1"
+                            [ngClass]="{'is-invalid': f.contact1.errors && (f.contact1.touched || (show && f.contact1.untouched))}">
+                        <div *ngIf="f.contact1.errors && (f.contact1.touched || (show && f.contact1.untouched))">
+                            <div *ngIf="f.contact1.errors?.required" class="text-danger">Contact is required</div>
+                        </div> -->
+                    <!-- <div class="col-md-6 filledcontrol">
+                        <label for="contact1" class="form-label">Contact 1 
+                            </label>
+                        <input type="text" class="form-control" id="contact1" placeholder="Please enter the contact 1"
+                             formControlName="contact1">
+                    </div> -->
+
+                    <!-- <div class="col-md-6 filledcontrol">
+                        <label for="contact2" class="form-label">Contact 2</label>
+                        <input type="text" class="form-control" id="contact2" placeholder="Please enter the contact 2"
+                             formControlName="contact2">
+                    </div> -->
+
+                    <div class="col-md-6 filledcontrol">
+                        <label for="address" class="form-label">Company Address :
+                            <!-- <span required
+                                class="required-asterisk" [formGroup]="clientbasicform"
+                                [controlName]="'address'">
+                            </span> -->
+                            </label>
+                        <input type="text" class="form-control" id="address" formControlName="address"
+                            placeholder="Please enter the company address">
+                        <!-- <div *ngIf="f.address.errors && (f.address.touched || (show && f.address.untouched))"
+                            class="invalid-feedback">
+                            <div *ngIf="f.address.errors?.required">Address is required</div>
+                        </div> -->
+                    </div>
+                    <div class="col-md-6 filledcontrol">
+                        <label for="state" class="form-label">State :
+                            <!-- <span required class="required-asterisk"
+                                [formGroup]="clientbasicform" [controlName]="'state'"></span> -->
+                            </label>
+                        <mat-select id="state" class="custom-form-select" name="state"
+                            placeholder="Please select the company state" [(value)]="selectedstate"
+                            formControlName="state" (selectionChange)="onstateChange($event)">
+                            <mat-option value="Alabama">Alabama</mat-option>
+                            <mat-option value="Alaska">Alaska</mat-option>
+                            <mat-option value="Arizona">Arizona</mat-option>
+                            <mat-option value="Arkansas">Arkansas</mat-option>
+                            <mat-option value="California">California</mat-option>
+                            <mat-option value="Colorado">Colorado</mat-option>
+                            <mat-option value="Connecticut">Connecticut</mat-option>
+                            <mat-option value="Delaware">Delaware</mat-option>
+                            <mat-option value="District of Columbia">District of Columbia</mat-option>
+                            <mat-option value="Florida">Florida</mat-option>
+                            <mat-option value="Georgia">Georgia</mat-option>
+                            <mat-option value="Hawaii">Hawaii</mat-option>
+                            <mat-option value="Idaho">Idaho</mat-option>
+                            <mat-option value="Illinois">Illinois</mat-option>
+                            <mat-option value="Indiana">Indiana</mat-option>
+                            <mat-option value="Iowa">Iowa</mat-option>
+                            <mat-option value="Kansas">Kansas</mat-option>
+                            <mat-option value="Kentucky">Kentucky</mat-option>
+                            <mat-option value="Louisiana">Louisiana</mat-option>
+                            <mat-option value="Maine">Maine</mat-option>
+                            <mat-option value="Maryland">Maryland</mat-option>
+                            <mat-option value="Massachusetts">Massachusetts</mat-option>
+                            <mat-option value="Michigan">Michigan</mat-option>
+                            <mat-option value="Minnesota">Minnesota</mat-option>
+                            <mat-option value="Mississippi">Mississippi</mat-option>
+                            <mat-option value="Missouri">Missouri</mat-option>
+                            <mat-option value="Montana">Montana</mat-option>
+                            <mat-option value="Nebraska">Nebraska</mat-option>
+                            <mat-option value="Nevada">Nevada</mat-option>
+                            <mat-option value="New Hampshire">New Hampshire</mat-option>
+                            <mat-option value="New Jersey">New Jersey</mat-option>
+                            <mat-option value="New Mexico">New Mexico</mat-option>
+                            <mat-option value="New York">New York</mat-option>
+                            <mat-option value="North Carolina">North Carolina</mat-option>
+                            <mat-option value="North Dakota">North Dakota</mat-option>
+                            <mat-option value="Ohio">Ohio</mat-option>
+                            <mat-option value="Oklahoma">Oklahoma</mat-option>
+                            <mat-option value="Oregon">Oregon</mat-option>
+                            <mat-option value="Pennsylvania">Pennsylvania</mat-option>
+                            <mat-option value="Rhode Island">Rhode Island</mat-option>
+                            <mat-option value="South Carolina">South Carolina</mat-option>
+                            <mat-option value="South Dakota">South Dakota</mat-option>
+                            <mat-option value="Tennessee">Tennessee</mat-option>
+                            <mat-option value="Texas">Texas</mat-option>
+                            <mat-option value="Utah">Utah</mat-option>
+                            <mat-option value="Vermont">Vermont</mat-option>
+                            <mat-option value="Virginia">Virginia</mat-option>
+                            <mat-option value="Washington">Washington</mat-option>
+                            <mat-option value="West Virginia">West Virginia</mat-option>
+                            <mat-option value="Wisconsin">Wisconsin</mat-option>
+                            <mat-option value="Wyoming">Wyoming</mat-option>
+                        </mat-select>
+                        <!-- [ngClass]="{'is-invalid': f.state.errors  && (f.state.touched || (f.state.untouched && show))}"
+                             <div *ngIf="f.state.errors && (f.state.touched || (show && f.state.untouched))"
+                            class="invalid-feedback">
+                            <div *ngIf="f.state.errors?.required">State is required</div>
+                        </div> -->
+                    </div>
+                    <div class="col-md-6 filledcontrol">
+                        <label for="country" class="form-label">Country :
+                            <!-- <span required class="required-asterisk"
+                                [formGroup]="clientbasicform" [controlName]="'country'"></span> -->
+                            </label>
+                        <input type="text" class="form-control" formControlName="country"
+                            placeholder="Please enter the company country" id="country"
+                            >
+                        <!-- [ngClass]="{'is-invalid': f.country.errors && (f.country.touched || (show && f.country.untouched))}"
+                            <div *ngIf="f.country.errors && (f.country.touched || (show && f.country.untouched))"
+                            class="invalid-feedback">
+                            <div *ngIf="f.country.errors?.required">Country is required</div>
+                        </div> -->
+                    </div>
+
+                    <div class="col-12 filledcontrol">
+                        <label for="description" class="form-label">Description :</label>
+                        <textarea placeholder="Please enter the description" class="form-control" id="description"
+                            name="description" rows="6" formControlName="description">
+                        </textarea>
+                    </div>
+
+                    <div class="d-grid gap-2 col-1 mx-auto">
+                        <button *ngIf="edit" class="btn btn-primary" (click)="onEdit()">
+                            Update
+                        </button>
+                    </div>
+                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                </form>
+            </div>
+        </div>
+        <!-- <h2 class="small-title">Company Login Credential!</h2>
+        <div class="card mb-5">
+            <div class="card-body">
+                <form *ngIf="clientloginform" class="row g-3 tooltip-end-top" [formGroup]="clientloginform"  
+                    autocomplete="off" novalidate> 
+                    <div class="col-md-6 filledcontrol">
+                        <label for="email" class="form-label">Email :<span required class="required-asterisk"
+                                [formGroup]="clientloginform" [controlName]="'email'"></span></label>
+                        <input class="form-control" 
+                        placeholder="Please enter the email" 
+                        formControlName="email"
+                        autocomplete="email" 
+                        [ngClass]="{'is-invalid': g.email.errors && (g.email.touched || (show && g.email.untouched))}">
+                        <div *ngIf="g.email.errors && (g.email.touched || (show && g.email.untouched))"
+                            class="invalid-feedback">
+                            <div *ngIf="g.email.errors?.required">Email is required</div>
+                            <div *ngIf="g.email.errors?.email">Email address is not valid</div>
+                        </div>
+                    </div>
+                    <div class="pass col-md-6 filledcontrol">
+                        <label for="password" class="form-label">Password :<span required class="required-asterisk"
+                                [formGroup]="clientloginform" [controlName]="'password'"></span></label>
+                        <div class="relative">
+                            <input class="form-control" 
+                                [type]="hide ? 'password' : 'text'" 
+                                placeholder="Please enter the password" 
+                                formControlName="password" 
+                                autocomplete="new-password" 
+                                [ngClass]="{'is-invalid': g.password.errors && (g.password.touched || (show && g.password.untouched))}">
+                            <button type="button" style="margin-right: 27px;" name="generate_password"
+                                title="Generate password"
+                                class="button-reset color-inherit db o-60 absolute center-v right-1 hover-primary6"
+                                (click)="generatepassword()"
+                                [ngClass]="{'is-invalid': g.password.errors && (g.password.touched || (show && g.password.untouched))}">
+                                <img src="/assets/img/password.jpg" width="22" height="22" alt="Generate password">
+                            </button>
+                            <button type="button" name="client_password" [title]="passwordtitle"
+                                class="button-reset color-inherit db o-60 absolute center-v right-1 hover-primary6"
+                                (click)="viewpassword()"
+                                [ngClass]="{'is-invalid': g.password.errors && (g.password.touched || (show && g.password.untouched))}">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
+                                    fill="#000000">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                </svg>
+                            </button>
+                            <div *ngIf="g.password.errors && (g.password.touched || (show && g.password.untouched))"
+                                class="invalid-feedback">
+                                <div *ngIf="g.password.errors?.required">Password is required</div>
+                                <div *ngIf="g.password.errors?.minlength">Password must be at least 6 characters</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 col-1 mx-auto">
+
+                        <button *ngIf="edit" class="btn btn-primary" (click)="onEditClientlog()">
+                            Update
+                        </button>
+                    </div>
+                    <div *ngIf="logmessage" class="alert alert-success mt-3 mb-0">{{logmessage}}</div>
+                </form>
+            </div>
+        </div> -->
+        <h2 class="small-title">Employee Details</h2>
+        <div class="card mb-5">
+            <div class="card-body">
+                <form class="row g-3 tooltip-end-top" [formGroup]="employeeform" novalidate *ngIf="employeeform"
+                    autocomplete="off">
+                    <div formArrayName="employee" *ngFor="let emp of employeeFormGroup.controls; let i = index;">
+                        <div class="row" [formGroupName]="i">
+                            <h4 class="mt-1" style="color: #c90c0c;">Employee {{i+1}}</h4>
+                            <div class="col-md-5 filledcontrol">
+                                <label for="name" class="form-label">Name :<span class="required-asterisk">*</span>
+                                </label>
+                                <input class="form-control" placeholder="Please enter the employee name"
+                                    formControlName="name" name="name" (input)="checkName(i)"
+                                    [ngClass]="{'is-invalid': getEmployeeFormGroup(i).controls['name'].errors && getEmployeeFormGroup(i).controls['name'].dirty}">
+                                <div *ngIf="getEmployeeFormGroup(i).controls['name'].errors && getEmployeeFormGroup(i).controls['name'].touched"
+                                    class="invalid-feedback">
+                                    <div *ngIf="getEmployeeFormGroup(i).controls['name'].errors?.required">Name is required</div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 filledcontrol">
+                                <label for="email" class="form-label">Email :
+                                    <span class="required-asterisk">*</span>
+                                </label>
+                                <input class="form-control" 
+                                    placeholder="Please enter the employee email"
+                                    formControlName="email" 
+                                    name="email" 
+                                    autocomplete="email" 
+                                    (input)="checkEmail(i)" 
+                                    (ngModelChange)="valuechange($event,i)"
+                                    [ngClass]="{'is-invalid': getEmployeeFormGroup(i).controls['email'].dirty && getEmployeeFormGroup(i).controls['email'].errors }">
+                                <div *ngIf="getEmployeeFormGroup(i).controls['email'].errors && getEmployeeFormGroup(i).controls['email'].dirty"
+                                    class="invalid-feedback">
+                                    <div *ngIf="getEmployeeFormGroup(i).controls['email'].errors.required">Email
+                                        is required
+                                    </div>
+                                </div>
+                                <div *ngIf="getEmployeeFormGroup(i).controls['email'].errors" class="invalid-feedback">
+                                    <div *ngIf="getEmployeeFormGroup(i).controls['email'].errors.email">Email is
+                                        not valid
+                                    </div>
+                                </div>
+                                <div *ngIf="showEmail === i" style="color: red;">
+                                    Email address already in use please choose another email
+                                </div> 
+                                <!-- <div *ngIf="empemail" class="invalid-feedback">{{employeemessage}}</div> -->
+                            </div>
+                            <div class="col-md-2">
+                                <input type="hidden" formControlName="employeeId" name="employeeId">
+                            </div>
+                            <div class="col-md-5 filledcontrol" style="margin-top: 6px;">
+                                <label for="password" class="form-label">Password :
+                                    <span class="required-asterisk">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input class="form-control" 
+                                        type="password"
+                                        placeholder="Please enter the employee password" 
+                                        formControlName="password"
+                                        [name]="i" 
+                                        autocomplete="new-password"
+                                        id="{{'age' + i}}" 
+                                        (input)="checkPassword(i)"
+                                        [ngClass]="{'is-invalid': getEmployeeFormGroup(i).controls['password'].touched && getEmployeeFormGroup(i).controls['password'].errors }">
+
+                                    <button type="button" style="margin-right: 27px;" name="emp-generate-password"
+                                        title="Generate password"
+                                        class="button-reset color-inherit db o-60 absolute center-v right-1 hover-primary6"
+                                        (click)="generatepassword1(i)"
+                                        [ngClass]="{'is-invalid': getEmployeeFormGroup(i).controls['password'].errors && getEmployeeFormGroup(i).controls['password'].dirty}">
+                                        <img src="/assets/img/password.jpg" width="22" height="22"
+                                            alt="Generate password">
+                                    </button>
+
+                                    <button type="button" [name]="i" [title]="epasswordtitle"
+                                        class="button-reset color-inherit db o-60 absolute center-v right-1 hover-primary6"
+                                        (click)="viewpassword1(i,$event,getEmployeeFormGroup(i).controls['password'])"
+                                        [ngClass]="{'is-invalid': getEmployeeFormGroup(i).controls['password'].errors &&  getEmployeeFormGroup(i).controls['password'].dirty}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                                            width="24px" fill="#000000">
+                                            <path d="M0 0h24v24H0z" fill="none" />
+                                            <path
+                                                d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                        </svg>
+                                    </button>
+                                    <div *ngIf="getEmployeeFormGroup(i).controls['password'].errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="getEmployeeFormGroup(i).controls['password'].errors?.required">
+                                            Password is required</div>
+                                        <div *ngIf="getEmployeeFormGroup(i).controls['password'].errors?.minlength">
+                                            Password must be at least 6 characters</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 filledcontrol" style="margin-top: 6px;">
+                                <label for="contactNo" class="form-label">Contact number :
+                                    
+                                </label>
+                                <!-- <input class="form-control" placeholder="Please enter the employee contactNo" (input)="checkContact(i)" 
+                                    (keypress)="keyPressNumbers($event)" formControlName="contactNo" name="contactNo"
+                                    [ngClass]="{'is-invalid': getEmployeeFormGroup(i).controls['contactNo'].dirty && getEmployeeFormGroup(i).controls['contactNo'].errors }">
+                                <div *ngIf="getEmployeeFormGroup(i).controls['contactNo'].errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="getEmployeeFormGroup(i).controls['contactNo'].errors.required">
+                                        Contact Number is required</div>
+                                </div> -->
+                                <input class="form-control" placeholder="Contact Number" (input)="checkContact(i)" 
+                                (keypress)="keyPressNumbers($event)" formControlName="contactNo" name="contactNo">
+                                <div *ngIf="isShowContact" style="color: red;">
+                                    Valid is numbers
+                                </div> 
+                            </div>
+                          
+                            <div class="col-md-2">
+                                <button class="btnicon btn-primary" title="Add new employee"
+                                    (click)="addEmployee()"><span class="material-icons">add</span></button>
+                                <button class="btnicon btn-primary" title="remove employee" (click)="removeEmployee(i)"
+                                    *ngIf="isCount === 1 ? false : true"><span class="material-icons">remove</span></button>
+                                    <!-- <button class="btnicon btn-primary" title="remove employee" (click)="removeEmployee(i)"><span class="material-icons">remove</span></button> -->
+                                <button class="btnicon btn-primary" title="Update Permission"
+                                    (click)="addPermissionDialog(i)"><span class="material-icons">
+                                        manage_accounts </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mx-auto">
+
+                        <button *ngIf="edit" class="btn btn-primary" (click)="onEditEmployee()">
+                            Update
+                        </button>
+
+                        <button *ngIf="save" [disabled]="disabled" class="btn btn-primary" (click)="onSave($event)">
+                            Save
+                        </button>
+                        <button class="btn btn-primary m-1" routerLink="/admin/client/list" style="font-size: 16px;">
+                            Back to List
+                        </button>
+                    </div>
+                    <div *ngIf="employeemessage" class="alert alert-success mt-3 mb-0">{{employeemessage}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

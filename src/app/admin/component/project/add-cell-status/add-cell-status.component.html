@@ -1,0 +1,27 @@
+<button mat-dialog-close class="close-button">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<h2 mat-dialog-title class="text-center">{{ title }}</h2>
+<mat-divider></mat-divider>
+<br>
+
+<form>
+    <mat-dialog-content>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 mx-auto text-center">
+                Do you want to add model cell?      
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="row mx-auto col-7">
+        <button class="mat-raised-button mat-accent col-md-3 m-1" (click)="no()">No</button>
+        <button class="mat-raised-button mat-accent col-md-3 m-1" (click)="yes()">Yes</button>
+    </mat-dialog-actions>
+</form>

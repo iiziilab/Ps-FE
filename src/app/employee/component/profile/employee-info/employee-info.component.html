@@ -1,0 +1,125 @@
+<main>
+    <div class="fluid-container">
+        <div class="row">
+            <app-sidebar class="col-auto side-menu-container" [toggle]='toggle'></app-sidebar>
+            <div class="col">
+                <div class="main-root">
+                    <div class="page-title-container">
+                        <div class="row">
+                            <button class="col-auto toggle-menu" (click)="togglemenuclick()">
+                                <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+                            </button>
+                            <div class="col-12 col-md-7">
+                                <h1 class="mb-1 pb-0 display-4" id="title">Employee</h1>
+                                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                                        <li class="breadcrumb-item"><a routerLink="/employee/dashboard">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a routerLink="/employee/loginfo">Log</a></li>
+    
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 col-lg-12">
+    
+                        <div class="card mb-5" style="width: 50%;margin-left: auto; margin-right: auto;">
+                            <div class="card-body row">
+                                <div class="text-center">
+                                    <label class="small-title" style="font-size: 20px;">Employee Info</label>
+                                </div>
+                                <form class="g-3 tooltip-end-top" [formGroup]="employeeform" novalidate autocomplete="off">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="filledcontrol mb-3">
+                                                <label for="name" class="form-label mb-2">
+                                                    Name</label>
+                                                <input type="text" class="form-control"
+                                                    placeholder="Please enter the name" formControlName="name"
+                                                    [class.is-invalid]="f.name.invalid && (f.name.dirty || (f.name.untouched && show))">
+                                                <div *ngIf="f.name.invalid && (f.name.dirty || (f.name.untouched && show))">
+                                                    <small *ngIf="f.name.errors?.required" class="text-danger">Name is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                            <div class="filledcontrol mb-3">
+                                                <label for="email" class="form-label mb-2">
+                                                    Email</label>
+                                                <input type="email" class="form-control"
+                                                    placeholder="Please enter the email" formControlName="email"
+                                                    [class.is-invalid]="f.email.invalid && (f.email.dirty || (f.email.untouched && show))" email="email">
+                                                <div *ngIf="f.email.invalid && (f.email.dirty || (f.email.untouched && show))">
+                                                    <small *ngIf="f.email.errors?.required" class="text-danger">Email is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                            <div class="filledcontrol mb-3">
+                                                <label for="password" class="form-label mb-2">
+                                                    Password</label>
+                                                <div class="relative">
+                                                    <input class="form-control" [type]="hide ? 'password' : 'text'"
+                                                        formControlName="password" name="password"
+                                                        [class.is-invalid]="f.password.invalid">
+                                                    <button type="button" name="header_search_submit"
+                                                        [title]="passwordtitle"
+                                                        class="button-reset color-inherit db o-60 absolute center-v right-1 hover-primary6"
+                                                        (click)="viewpassword()">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                                            viewBox="0 0 24 24" width="24px" fill="#000000">
+                                                            <path d="M0 0h24v24H0z" fill="none" />
+                                                            <path
+                                                                d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                                        </svg>
+                                                    </button>
+                                                    <div *ngIf="f.password.invalid">
+                                                        <small *ngIf="f.password.errors?.required" class="text-danger">Password is required</small>
+                                                    </div>
+                                                    <div *ngIf="f.password.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.password.errors?.minlength">Password must be at least 6 characters
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <img [src]="image" class="rounded-md mb-1 float-start sw-18 img-fluid"
+                                                alt="thumb">
+                                            <div class="filledcontrol">
+                                                <label for="pic" class="form-label mb-2">Choose
+                                                    file</label>
+                                                <input type="file" style="height: 37px!important;min-height: 37px!important;" id="pic"
+                                                    (change)="handleFileInput($event)" #fileInput accept="image/*"
+                                                    class="col-6 form-control">
+                                            </div>
+                                        </div>
+    
+    
+                                    </div>
+    
+    
+                                    <div class="d-grid gap-2 col-3 mx-auto">
+                                        <br>
+                                        <button *ngIf="edit" class="btn btn-primary" (click)="onEdit()">
+                                            Update Profile
+                                        </button>
+                                    </div>
+    
+                                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- <div class="btncenter">
+                            <button class="btn btn-primary m-1" routerLink="/employee/dashboard">
+                                Back to Dashboard
+                            </button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<app-layout></app-layout>

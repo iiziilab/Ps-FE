@@ -1,0 +1,135 @@
+<main>
+    <div class="fluid-container">
+        <div class="row">
+            <app-sidebar class="col-auto side-menu-container" [toggle]='toggle'></app-sidebar>
+            <div class="col">
+                <div class="main-root">
+                    <div class="page-title-container">
+                        <div class="row">
+                            <button class="col-auto toggle-menu" (click)="togglemenuclick()">
+                                <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+                            </button>
+                            <div class="col-12 col-md-7">
+                                <h1 class="mb-1 pb-0 display-4" id="title">Menu</h1>
+                                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                                        <li class="breadcrumb-item"><a routerLink="/employeedashboard">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a routerLink="/employee/project/list">Project</a></li>
+                                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">{{ projectName}}</a></li>
+                                        <li class="breadcrumb-item"><a [routerLink]="modeltitleurl">{{cellName}}</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <mat-expansion-panel class="left-panle">
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title> View Groups </mat-panel-title>
+                                      </mat-expansion-panel-header>
+                                      <button class="button-panle" (click)="$event ? masterViewGroupReset() : null">Reset</button>
+                                      <button class="button-panle" (click)="$event ? masterViewGroupSelected() : null">Show Selected</button>
+                                      <button class="button-panle" (click)="$event ? masterExpandCollapseGroups() : null">Expand/Collapse Groups</button>
+                                </mat-expansion-panel>
+                
+                                <mat-expansion-panel class="left-panle">
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title> Consideration Set </mat-panel-title>
+                                      </mat-expansion-panel-header>
+                                      <button class="button-panle" (click)="onConsolidationClick('Default')">Default</button>
+                                      <button class="button-panle" (click)="onConsolidationClick('Select')">Select</button>
+                                      <button class="button-panle" (click)="onConsolidationClick('Unselect')">Unselect</button>
+                                </mat-expansion-panel>
+                
+                                <mat-expansion-panel class="left-panle">
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title> Force Into Results </mat-panel-title>
+                                      </mat-expansion-panel-header>
+                                      <button class="button-panle" (click)="onIncludeClick('Select')">Select</button>
+                                      <button class="button-panle" (click)="onIncludeClick('Unselect')">Unselect</button>
+                                </mat-expansion-panel>
+                
+                                <!-- <mat-expansion-panel class="left-panle">
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title> Export </mat-panel-title>
+                                      </mat-expansion-panel-header>
+                                      <button (click)="generateExcel()" class="excelbtn"> Export Excel</button>
+                                </mat-expansion-panel> -->
+                            </div>
+                            <div class="col-9 cart-emp">
+                                <div class="card mb-5">
+                                    <table class="table table-hover table-responsive-xl">
+                                        <thead style="color: rgba(0,0,0,.54);font-family: Roboto, 'Helvetica Neue', sans-serif !important;">
+                                            <th style="width:20%"> Consideration Set </th>
+                                            <th style="width:20%"> Force Into Results </th>
+                                            <th style="width:60%"> Item </th>
+                                        </thead>
+                                    
+                                        <tbody>
+                                    
+                                    <ng-container *ngFor="let data of category; let i = index">
+                                      <tr >
+                                        <td colspan="3"> <button class="expandable-btn" (click)="data[i].isExpanded = !data[i].isExpanded"><span class="material-icons">
+                                            {{ data[i].isExpanded == true ? 'chevron_right' : 'expand_more' }}</span></button> {{data[i].category}} </td>
+                                      </tr>
+                                    
+                                      <ng-container *ngIf="!data[i].isExpanded">
+                                        <tr *ngFor="let details of findDetails(data[i])">
+    
+                                            <td><mat-checkbox (click)="$event.stopPropagation()"
+                                                [checked]="details.consideration" style="padding-left: 25px"> 
+                                            </mat-checkbox></td>
+                                            <td> <mat-checkbox (click)="$event.stopPropagation()"
+                                                 [checked]="details.include" style="padding-left: 25px">
+                                            </mat-checkbox></td>
+                                          <td style="padding-left: 12px"> {{details.shortDescription}} </td>
+                                          
+                                        </tr>
+                                      </ng-container>
+                                    </ng-container>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            </div>
+                                                </div>
+                                                <!-- <div class="headbody">
+                                                    <mat-form-field appearance="fill">
+                                                        <mat-label>View Groups</mat-label>
+                                                 
+                                                        <mat-select [(value)]="selectedviewgroup">
+                                                            <mat-option value="Reset" (click)="$event ? masterViewGroupReset() : null">Reset</mat-option>
+                                                            <mat-option value="Show Selected" (click)="$event ? masterViewGroupSelected() : null">Show Selected</mat-option>
+                                                            <mat-option value="Expand/Collapse Groups" (click)="$event ? masterExpandCollapseGroups() : null">Expand/Collapse Groups</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="fill">
+                                                        <mat-label>Consideration Set</mat-label>
+                                                        <mat-select [(value)]="selectedConsolidation" (selectionChange)="onConsolidationChange($event)">
+                                                          <mat-option value="Default">Default</mat-option>
+                                                          <mat-option value="Select">Select</mat-option>
+                                                          <mat-option value="Unselect">Unselect</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                            
+                                                    <mat-form-field appearance="fill">
+                                                        <mat-label>Force Into Results</mat-label>
+                                                        <mat-select [(value)]="selectedforce" (selectionChange)="onIncludeChange($event)">
+                                                          <mat-option value="Select">Select</mat-option>
+                                                          <mat-option value="Unselect">Unselect</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div> -->
+                                                
+                                                <div class="btncenter">
+                                                </div>
+                                            </div>
+                </div>
+   
+            </div>
+        </div>
+    </div>
+</main>            
+
+<app-layout></app-layout>

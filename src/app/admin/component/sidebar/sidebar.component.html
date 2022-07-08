@@ -1,0 +1,35 @@
+<div [ngClass]="{'togglesidebar': msgFromParent1}">
+    <br>
+    <a id="btndashboard" *ngIf="!msgFromParent1" routerLink="/admin/dashboard" routerLinkActive="pctive"
+        [routerLinkActiveOptions]="{ exact: true }" class="sidebar-link sidebar-menu mb-1">Dashboard</a>
+    <a id="btnclient" *ngIf="!msgFromParent1" routerLink="/admin/client/list" routerLinkActive="pctive"
+        [routerLinkActiveOptions]="{ exact: true }" class="sidebar-link sidebar-menu mb-1">Client</a>
+    <a id="btnproject" *ngIf="!msgFromParent1" routerLink="/admin/project/list" routerLinkActive="pctive"
+        [routerLinkActiveOptions]="{ exact: true }" class="sidebar-link sidebar-menu mb-1">Project</a>
+    <div class="dropable sidebar-link sidebar-menu" *ngIf="!msgFromParent1" (click)="isExpanded=!isExpanded">
+        <div class="css-xdiy5h">Permission</div>
+        <span class="material-icons">{{ isExpanded == true ? 'chevron_right' : 'expand_more' }}</span>
+    </div>
+
+
+    <div [ngClass]="{'show' : !isExpanded && !msgFromParent1}" class="dropdown-menu dropdown-menu-end dropdown-submenu">
+        <div class="dropdown dropstart dropdown-submenu">
+            <a routerLink="/admin/user/list" routerLinkActive="pctive" [routerLinkActiveOptions]="{ exact: true }"
+                class="dropdown-item">
+                <mat-icon aria-hidden="false" aria-label="user" class="link_icon">person</mat-icon>
+                <span class="label spantext">Administrator User</span>
+            </a>
+            <a routerLink="/admin/role/list" routerLinkActive="pctive" [routerLinkActiveOptions]="{ exact: true }"
+                class="dropdown-item">
+                <mat-icon aria-hidden="false" aria-label="role" class="link_icon">manage_accounts</mat-icon>
+                <span class="label spantext">Role</span>
+            </a>
+            <a routerLink="/admin/permission/list" routerLinkActive="pctive" [routerLinkActiveOptions]="{ exact: true }"
+                class="dropdown-item">
+                <mat-icon aria-hidden="false" aria-label="permission" class="link_icon">view_module</mat-icon>
+                <span class="label spantext">Permission</span>
+            </a>
+        </div>
+    </div>
+
+</div>

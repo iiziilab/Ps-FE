@@ -1,0 +1,83 @@
+<div class="col">
+    <app-breadcrumb></app-breadcrumb>
+
+    <div class="row">
+        <div class="col-2 left-acc">
+            <div class="row">
+                <div class="btnrptcontainer">
+                    <mat-expansion-panel class="left-panle" [expanded]="isFirst">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Chart</mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <button class="button-panle" (click)="chart('chart')">
+                            Chart
+                          </button>
+                          <button class="button-panle" (click)="chart('chartData')">
+                            Chart Data
+                          </button>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel class="left-panle" [expanded]="isSecond">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Details</mat-panel-title>
+                          </mat-expansion-panel-header>
+                        <button class="button-panle" *ngIf="arrlength >= 1" (click)="details('item')">
+                            1 Item
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 2" (click)="details('item2')">
+                            2 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 3" (click)="details('item3')">
+                            3 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 4" (click)="details('item4')">
+                            4 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 5" (click)="details('item5')">
+                            5 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 6" (click)="details('item6')">
+                            6 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 7" (click)="details('item7')">
+                            7 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 8" (click)="details('item6')">
+                            8 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 9" (click)="details('item9')">
+                            9 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 10" (click)="details('item10')">
+                            10 Items
+                        </button>
+                        <button class="button-panle" (click)="details('count')">
+                            Count
+                        </button>
+                    </mat-expansion-panel>
+                    
+                    <mat-expansion-panel class="left-panle" [expanded]="isThrid">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Save</mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <button class="btn btn-primary m-1" style="background: #60a1e5;" (click)="savereport()">
+                            Save
+                        </button>
+                    </mat-expansion-panel>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-10 table-body">
+            <app-chart *ngIf="charturl"></app-chart>
+            <app-chart-data *ngIf="chartDataurl"></app-chart-data>
+            <app-count *ngIf="counturl"></app-count>
+            <app-oneitems *ngIf="OneItem"></app-oneitems>
+            <app-twoitems *ngIf="TwoItem"></app-twoitems>
+            <app-threeitems *ngIf="ThreeItem"></app-threeitems>
+            <app-fouritems *ngIf="FourItem"></app-fouritems>
+            <app-fiveitems *ngIf="FiveItem"></app-fiveitems>
+            <app-sixitems *ngIf="SixItem"></app-sixitems>
+        </div>
+    </div>
+</div>

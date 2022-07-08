@@ -1,0 +1,77 @@
+<div class="card mb-2">
+    <div class="card-body h-100">
+        <div class="col-12 col-lg-12">
+            <div style="padding-bottom: 12px;">
+                <label class="small-title">3 Item</label>
+                <button class="btn-copy" (click)="copy()"><i matTooltip="Copy table" class="fa fa-clone" aria-hidden="true"></i></button>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                    <table mat-table [dataSource]="dataSource">
+
+                        <tr class="mat-row text-center mt-2" *matNoDataRow>
+                            <td class="mat-cell" colspan="9999">
+                                <h4>No records found</h4>
+                            </td>
+                          </tr>
+                          
+                        <ng-container matColumnDef="Sr.No">
+                            <th mat-header-cell *matHeaderCellDef width="8%"> SN. </th>
+                            <td mat-cell *matCellDef="let element;let i = index">{{ (i + 1) }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Reach">
+                            <th mat-header-cell *matHeaderCellDef width="8%"> Reach </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.reach }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Frequency">
+                            <th mat-header-cell *matHeaderCellDef width="8%"> Frequency </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.frequency }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Freqreach">
+                            <th mat-header-cell *matHeaderCellDef width="11%"> Freq(Reached) </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.freqreach }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Item1">
+                            <th mat-header-cell *matHeaderCellDef> Item1 </th>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 10px;"> {{ element.item1 }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Item2">
+                            <th mat-header-cell *matHeaderCellDef> Item2 </th>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 10px;"> {{ element.item2 }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Item3">
+                            <th mat-header-cell *matHeaderCellDef> Item3 </th>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 10px;"> {{ element.item3 }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Incr_reach1">
+                            <th mat-header-cell *matHeaderCellDef width="10%"> Incr_reach1 </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.incremental_reach1 }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Incr_reach2">
+                            <th mat-header-cell *matHeaderCellDef width="10%"> Incr_reach2 </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.incremental_reach2 }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Incr_reach3">
+                            <th mat-header-cell *matHeaderCellDef width="10%"> Incr_reach3 </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.incremental_reach3 }} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                            (click)="selectedRow = selectedRow === row ? null : row"
+                            [ngClass]="{ 'selected': row == selectedRow }" (click)="highlight()"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

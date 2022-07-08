@@ -1,0 +1,250 @@
+<div class="col">
+    <div class="page-title-container">
+
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Roles Permission</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/role/list">Roles</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/role/permission">Permission</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-12">
+        <div style="padding-bottom: 12px;">
+            <h2 class="small-title" style="font-size:larger; font-weight: 700;">{{selectedrole | titlecase}} Permission
+            </h2>
+        </div>
+        <div class="card mb-5">
+            <div class="card-body">
+                <form class="row g-3 tooltip-end-top" [formGroup]="permissionform" novalidate autocomplete="off">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="SelectUnSelect" [checked]="SelectUnSelect"
+                            (change)="OnChange($event)">
+                        <label class="form-check-label" for="SelectUnSelect">Select/Unselect All</label>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6" *ngIf="client">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-1">
+                            <label class="col-lg-6 col-md-6 col-sm-6 small-title">Client Module</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="clientSelectUnSelect"
+                                    [checked]="clientSelectUnSelect" (change)="onclientSelectUnSelectChanged($event)">
+                                <label class="form-check-label" for="clientSelectUnSelect">Select/Unselect
+                                    Client</label>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="clientInsert" [checked]="clientInsert"
+                                (change)="onclientInsertChanged($event)">
+                            <label class="form-check-label" for="clientInsert">Insert</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="clientUpdate" [checked]="clientUpdate"
+                                (change)="onclientUpdateChanged($event)">
+                            <label class="form-check-label" for="clientUpdate">Update</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="clientDelete" [checked]="clientDelete"
+                                (change)="onclientDeleteChanged($event)">
+                            <label class="form-check-label" for="clientDelete">Delete</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="clientDetails" [checked]="clientDetails"
+                                (change)="onclientViewChanged($event)">
+                            <label class="form-check-label" for="clientDetails">View</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="clientList" [checked]="clientList"
+                                (change)="onclientListChanged($event)">
+                            <label class="form-check-label" for="clientList">List</label>
+                        </div>
+
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6" *ngIf="project">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-1">
+                            <label class="col-lg-6 col-md-6 col-sm-6 small-title">Project Module</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="projectSelectUnSelect"
+                                    [checked]="projectSelectUnSelect" (change)="onprojectSelectUnSelectChanged($event)">
+                                <label class="form-check-label" for="projectSelectUnSelect">Select/Unselect
+                                    Project</label>
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="projectInsert" [checked]="projectInsert"
+                                (change)="onprojectInsertChanged($event)">
+                            <label class="form-check-label" for="projectInsert">Insert</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="projectUpdate" [checked]="projectUpdate"
+                                (change)="onprojectUpdateChanged($event)">
+                            <label class="form-check-label" for="projectUpdate">Update</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="projectDelete" [checked]="projectDelete"
+                                (change)="onprojectDeleteChanged($event)">
+                            <label class="form-check-label" for="projectDelete">Delete</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="projectDetails"
+                                [checked]="projectDetails" (change)="onprojectViewChanged($event)">
+                            <label class="form-check-label" for="projectDetails">View</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="projectList" [checked]="projectList"
+                                (change)="onprojectListChanged($event)">
+                            <label class="form-check-label" for="projectList">List</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="cellList" [checked]="cellList"
+                                (change)="oncellListChanged($event)">
+                            <label class="form-check-label" for="cellList">Cell List</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="upload" [checked]="upload"
+                                (change)="onuploadChanged($event)">
+                            <label class="form-check-label" for="upload">Upload</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="menu" [checked]="menu"
+                                (change)="onmenuChanged($event)">
+                            <label class="form-check-label" for="menu">Menu</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6" *ngIf="user">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-1">
+                            <label class="col-lg-6 col-md-6 col-sm-6 small-title">User Module</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="userSelectUnSelect"
+                                    [checked]="userSelectUnSelect" (change)="onuserSelectUnSelectChanged($event)">
+                                <label class="form-check-label" for="userSelectUnSelect">Select/Unselect User</label>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="userInsert" [checked]="userInsert"
+                                (change)="onuserInsertChanged($event)">
+                            <label class="form-check-label" for="userInsert">Insert</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="userUpdate" [checked]="userUpdate"
+                                (change)="onuserUpdateChanged($event)">
+                            <label class="form-check-label" for="userUpdate">Update</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="userDelete" [checked]="userDelete"
+                                (change)="onuserDeleteChanged($event)">
+                            <label class="form-check-label" for="userDelete">Delete</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="userDetails" [checked]="userDetails"
+                                (change)="onuserViewChanged($event)">
+                            <label class="form-check-label" for="userDetails">View</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="userList" [checked]="userList"
+                                (change)="onuserListChanged($event)">
+                            <label class="form-check-label" for="userList">List</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6" *ngIf="role">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-1">
+                            <label class="col-lg-6 col-md-6 col-sm-6 small-title">Role Module</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="roleSelectUnSelect"
+                                    [checked]="roleSelectUnSelect" (change)="onroleSelectUnSelectChanged($event)">
+                                <label class="form-check-label" for="roleSelectUnSelect">Select/Unselect Role</label>
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="roleInsert" [checked]="roleInsert"
+                                (change)="onroleInsertChanged($event)">
+                            <label class="form-check-label" for="roleInsert">Insert</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="roleUpdate" [checked]="roleUpdate"
+                                (change)="onroleUpdateChanged($event)">
+                            <label class="form-check-label" for="roleUpdate">Update</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="roleDelete" [checked]="roleDelete"
+                                (change)="onroleDeleteChanged($event)">
+                            <label class="form-check-label" for="roleDelete">Delete</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="roleDetails" [checked]="roleDetails"
+                                (change)="onroleViewChanged($event)">
+                            <label class="form-check-label" for="roleDetails">View</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="roleList" [checked]="roleList"
+                                (change)="onroleListChanged($event)">
+                            <label class="form-check-label" for="roleList">List</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6" *ngIf="permission">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mb-1">
+                            <label class="col-lg-6 col-md-6 col-sm-6 small-title">Permission Module</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="permissionSelectUnSelect"
+                                    [checked]="permissionSelectUnSelect"
+                                    (change)="onpermissionSelectUnSelectChanged($event)">
+                                <label class="form-check-label" for="permissionSelectUnSelect">Select/Unselect
+                                    Permission</label>
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="permissionInsert"
+                                [checked]="permissionInsert" (change)="onpermissionInsertChanged($event)">
+                            <label class="form-check-label" for="permissionInsert">Insert</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="permissionUpdate"
+                                [checked]="permissionUpdate" (change)="onpermissionUpdateChanged($event)">
+                            <label class="form-check-label" for="permissionUpdate">Update</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="permissionDelete"
+                                [checked]="permissionDelete" (change)="onpermissionDeleteChanged($event)">
+                            <label class="form-check-label" for="permissionDelete">Delete</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="permissionDetails"
+                                [checked]="permissionDetails" (change)="onpermissionViewChanged($event)">
+                            <label class="form-check-label" for="permissionDetails">View</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="permissionList"
+                                [checked]="permissionList" (change)="onpermissionListChanged($event)">
+                            <label class="form-check-label" for="permissionList">List</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6">
+                    </div>
+                    <div class="col-3 mx-auto">
+
+                        <button *ngIf="edit" class="btn btn-primary" (click)="onEdit()">
+                            Save
+                        </button>
+
+                        <button *ngIf="save" class="btn btn-primary" (click)="onSave()">
+                            Save
+                        </button>
+                        <button class="btn btn-primary m-1" routerLink="/admin/role/list" style="font-size: 16px;">
+                            Back to List
+                        </button>
+                    </div>
+
+                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

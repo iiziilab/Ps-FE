@@ -1,0 +1,19 @@
+<div class="page-title-container">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <h1 class="mb-1 pb-0 display-4" id="title">Cell</h1>
+            <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                    <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/admin/project/list">{{pName}}</a></li>
+                    <li class="breadcrumb-item"><a (click)="goBackCell()" style="cursor: pointer">configuration</a></li>
+                    <li class="breadcrumb-item"><a [routerLink]="modeltitleurl">Results/Optimization</a></li>
+                    <!-- <li class="breadcrumb-item"><a [routerLink]="chartlink">Chart</a></li> -->
+                </ul>
+            </nav>
+            <button mat-raised-button matTooltip="Go Back" (click)="goBackCell()" class="btn-back"> <i class="fa fa-arrow-left" aria-hidden="true"></i> </button>
+        </div>
+        
+    </div>
+</div>

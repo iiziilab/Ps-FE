@@ -1,0 +1,380 @@
+
+  
+        <!-- <div class="col-2">
+            <div class="row">
+                <div class="btnrptcontainer">
+                    <mat-expansion-panel class="left-panle">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Chart</mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <button class="button-panle" [routerLink]="charturl">
+                            Chart
+                          </button>
+                          <button class="button-panle" [routerLink]="chartDataurl">
+                            Chart Data
+                          </button>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel class="left-panle">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Details</mat-panel-title>
+                          </mat-expansion-panel-header>
+                        <button class="button-panle" *ngIf="arrlength >= 1" [routerLink]="OneItem">
+                            1 Item
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 2" [routerLink]="TwoItem">
+                            2 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 3" [routerLink]="ThreeItem">
+                            3 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 4" [routerLink]="FourItem">
+                            4 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 5" [routerLink]="FiveItem">
+                            5 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 6" [routerLink]="SixItem">
+                            6 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 7" [routerLink]="SevenItem">
+                            7 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 8" [routerLink]="EightItem">
+                            8 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 9" [routerLink]="NineItem">
+                            9 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 10" [routerLink]="TenItem">
+                            10 Items
+                        </button>
+                        <button class="button-panle">
+                            Count
+                        </button>
+                    </mat-expansion-panel>
+                    
+                    <mat-expansion-panel class="left-panle">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Save</mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <button class="btn btn-primary m-1" (click)="savereport()" style="background: #60a1e5;">
+                            Save
+                        </button>
+                    </mat-expansion-panel>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <div class="col-md-10 table-body">
+            
+        </div> -->
+        <div class="card mb-2">
+            <div class="card-body h-100">
+                <div class="col-12 col-lg-12">
+                    <div style="padding-bottom: 12px;">
+                        <label class="small-title">Count</label>
+                        <button class="btn-copy" (click)="copy()"><i matTooltip="Copy table" class="fa fa-clone" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="table-mt">
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                            <ng-container matColumnDef="Sr.No">
+                                <th [ngStyle]="{'display': 'none'}" mat-header-cell *matHeaderCellDef width="20%"> SN. </th>
+                                <td mat-cell *matCellDef="let element;let i = index">{{ (i + 1) }}</td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="Items">
+                                <th [ngStyle]="{'display': 'none'}" mat-header-cell *matHeaderCellDef> Item </th>
+                                <td mat-cell *matCellDef="let element"> {{element.items}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[0].Countfromtop100" *ngIf="arrlength >= 1">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 100 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[0].countfromtop100}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[0].Countfromtop200" *ngIf="arrlength >= 1">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 200 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[0].countfromtop200}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[0].Countfromtop300" *ngIf="arrlength >= 1">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 300 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[0].countfromtop300}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[0].Countfromtop400" *ngIf="arrlength >= 1">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 400 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[0].countfromtop400}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[0].Countfromtop500" *ngIf="arrlength >= 1">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 500 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[0].countfromtop500}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[1].Countfromtop100" *ngIf="arrlength >= 2">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 100 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[1].countfromtop100}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[1].Countfromtop200" *ngIf="arrlength >= 2">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 200 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[1].countfromtop200}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[1].Countfromtop300" *ngIf="arrlength >= 2">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 300 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[1].countfromtop300}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[1].Countfromtop400" *ngIf="arrlength >= 2">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 400 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[1].countfromtop400}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[1].Countfromtop500" *ngIf="arrlength >= 2">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 500 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[1].countfromtop500}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[2].Countfromtop100" *ngIf="arrlength >= 3">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 100 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[2].countfromtop100}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[2].Countfromtop200" *ngIf="arrlength >= 3">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 200 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[2].countfromtop200}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[2].Countfromtop300" *ngIf="arrlength >= 3">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 300 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[2].countfromtop300}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[2].Countfromtop400" *ngIf="arrlength >= 3">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 400 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[2].countfromtop400}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[2].Countfromtop500" *ngIf="arrlength >= 3">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 500 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[2].countfromtop500}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[3].Countfromtop100" *ngIf="arrlength >= 4">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 100 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[3].countfromtop100}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[3].Countfromtop200" *ngIf="arrlength >= 4">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 200 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[3].countfromtop200}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[3].Countfromtop300" *ngIf="arrlength >= 4">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 300 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[3].countfromtop300}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[3].Countfromtop400" *ngIf="arrlength >= 4">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 400 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[3].countfromtop400}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[3].Countfromtop500" *ngIf="arrlength >= 4">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 500 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[3].countfromtop500}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[4].Countfromtop100" *ngIf="arrlength >= 5">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 100 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[4].countfromtop100}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[4].Countfromtop200" *ngIf="arrlength >= 5">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 200 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[4].countfromtop200}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[4].Countfromtop300" *ngIf="arrlength >= 5">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 300 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[4].countfromtop300}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[4].Countfromtop400" *ngIf="arrlength >= 5">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 400 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[4].countfromtop400}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[4].Countfromtop500" *ngIf="arrlength >= 5">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 500 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[4].countfromtop500}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[5].Countfromtop100" *ngIf="arrlength >= 6">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 100 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[5].countfromtop100}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[5].Countfromtop200" *ngIf="arrlength >= 6">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 200 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[5].countfromtop200}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[5].Countfromtop300" *ngIf="arrlength >= 7">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 300 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[5].countfromtop300}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[5].Countfromtop400" *ngIf="arrlength >= 7">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 400 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[5].countfromtop400}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[5].Countfromtop500" *ngIf="arrlength >= 7">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 500 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[5].countfromtop500}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[6].Countfromtop100" *ngIf="arrlength >= 8">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 100 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[6].countfromtop100}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[6].Countfromtop200" *ngIf="arrlength >= 8">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 200 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[6].countfromtop200}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[6].Countfromtop300" *ngIf="arrlength >= 8">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 300 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[6].countfromtop300}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[6].Countfromtop400" *ngIf="arrlength >= 8">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 400 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[6].countfromtop400}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="topcounter[6].Countfromtop500" *ngIf="arrlength >= 8">
+                                <th mat-header-cell *matHeaderCellDef> Count from top 500 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.topcounter[6].countfromtop500}} </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-sn-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2"> No </th>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-item-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2"> Items </th>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-first-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="5"> 2Items </th>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-second-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="5"> 3Items </th>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-third-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="5"> 4Items </th>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-fourth-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="5"> 5Items </th>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-fifth-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="5"> 6Items </th>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-sixth-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="5"> 7Items </th>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="header-row-seventh-group">
+                                <th mat-header-cell *matHeaderCellDef [attr.colspan]="5"> 8Items </th>
+                            </ng-container>
+            
+                            <!-- <tr mat-header-row *ngIf="arrlength >= 2"
+                                *matHeaderRowDef="['header-row-sn-group','header-row-item-group','header-row-first-group']">
+                            </tr>
+                            <tr mat-header-row *ngIf="arrlength >= 3"
+                                *matHeaderRowDef="['header-row-sn-group','header-row-item-group','header-row-first-group', 'header-row-second-group']">
+                            </tr>
+                            <tr mat-header-row *ngIf="arrlength >= 4"
+                                *matHeaderRowDef="['header-row-sn-group','header-row-item-group','header-row-first-group', 'header-row-second-group','header-row-third-group']">
+                            </tr>
+                            <tr mat-header-row *ngIf="arrlength >= 5"
+                                *matHeaderRowDef="['header-row-sn-group','header-row-item-group','header-row-first-group', 'header-row-second-group','header-row-third-group','header-row-fourth-group']">
+                            </tr>
+                            <tr mat-header-row *ngIf="arrlength >= 6"
+                                *matHeaderRowDef="['header-row-sn-group','header-row-item-group','header-row-first-group', 'header-row-second-group','header-row-third-group','header-row-fourth-group','header-row-fifth-group']">
+                            </tr>
+                            <tr mat-header-row *ngIf="arrlength >= 7"
+                                *matHeaderRowDef="['header-row-sn-group','header-row-item-group','header-row-first-group', 'header-row-second-group','header-row-third-group','header-row-fourth-group','header-row-fifth-group','header-row-sixth-group']">
+                            </tr> -->
+                            <tr mat-header-row
+                                *matHeaderRowDef="['header-row-sn-group','header-row-item-group','header-row-first-group', 'header-row-second-group','header-row-third-group','header-row-fourth-group','header-row-fifth-group','header-row-sixth-group','header-row-seventh-group']">
+                            </tr>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-md-2">
+            <div class="row">
+                <div class="btnrptcontainer">
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 1" [routerLink]="OneItem">
+                        1 Item
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 2" [routerLink]="TwoItem">
+                        2 Items
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 3" [routerLink]="ThreeItem">
+                        3 Items
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 4" [routerLink]="FourItem">
+                        4 Items
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 5" [routerLink]="FiveItem">
+                        5 Items
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 6" [routerLink]="SixItem">
+                        6 Items
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 7" [routerLink]="SevenItem">
+                        7 Items
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 8" [routerLink]="EightItem">
+                        8 Items
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 9" [routerLink]="NineItem">
+                        9 Items
+                    </button>
+                    <button class="btn btn-primary m-1" *ngIf="arrlength >= 10" [routerLink]="TenItem">
+                        10 Items
+                    </button>
+                    <button class="btn btn-primary m-1" [routerLink]="chartDataurl">
+                        Chart Data
+                    </button>
+                   
+                    <button class="btn btn-primary m-1" style="background: gray;">
+                        Count
+                    </button>
+                    <button class="btn btn-primary m-1" [routerLink]="charturl">
+                        Chart
+                    </button>
+                    <button class="btn btn-primary m-1" (click)="savereport" style="background: #60a1e5;">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div> -->
+    

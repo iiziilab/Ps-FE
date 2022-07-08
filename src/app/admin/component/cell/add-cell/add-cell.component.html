@@ -1,0 +1,60 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Project</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="listLink">Cell</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="modeltitleurl">{{modeltitle}}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-lg-12">
+        <div>
+            <label class="small-title" style="text-align: center;">Add Cell</label>
+        </div>
+        <div class="card mb-5" style="width: 55%;margin-left: auto; margin-right: auto;">
+            <div class="card-body">
+                <form class="row g-3 tooltip-end-top" [formGroup]="modelform" novalidate autocomplete="off">
+                    <input type="hidden" formControlName="projectId">
+                    <input type="hidden" formControlName="cellId">
+                    <div class="filledcontrol">
+                        <label for="cellName" class="form-label">Cell Name :<span required class="required-asterisk"
+                                [formGroup]="modelform" [controlName]="'cellName'"></span></label>
+                        <input class="form-control" placeholder="Please enter the cell name" formControlName="cellName"
+                            [class.is-invalid]="f.cellName.invalid && (f.cellName.touched || (f.cellName.untouched && show))">
+                        <div *ngIf="f.cellName.invalid && (f.cellName.touched || (f.cellName.untouched && show))">
+                            <small *ngIf="f.cellName.errors?.required" class="text-danger">Cell Name is required</small>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 col-1 mx-auto">
+
+                        <button *ngIf="f.cellId.value" class="btn btn-primary" (click)="onEdit()">
+                            Update
+                        </button>
+
+                        <button *ngIf="!f.cellId.value" class="btn btn-primary" (click)="onSave()">
+                            Save
+                        </button>
+                    </div>
+
+                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                </form>
+            </div>
+        </div>
+        <div class="btncenter">
+            <button class="btn btn-primary m-1" [routerLink]="listLink">
+                Back to List
+            </button>
+        </div>
+    </div>
+</div>

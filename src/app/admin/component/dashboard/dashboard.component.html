@@ -1,0 +1,243 @@
+<div class="col">
+    <div class="page-title-container">
+
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <h1 class="mb-0 pb-0 display-4" id="title">Dashboard</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="mb-5">
+            <div class="row g-2">
+                <div class="col-12 col-sm-4 col-lg-4" *ngIf="client">
+                    <div class="card sh-11 hover-scale-up cursor-pointer">
+                        <div class="h-100 row g-0 card-body align-items-center py-3">
+                            <div class="col-auto pe-3">
+                                <div
+                                    class="bg-gradient-2 sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center">
+                                    <i data-cs-icon="navigate-diagonal" class="text-white"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row gx-2 d-flex align-content-center" (click)="onClientClick()">
+                                    <div class="col-12 col-xl d-flex">
+                                        <div class="d-flex align-items-center lh-1-25">Clients
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-auto">
+                                        <div class="cta-2 text-primary">{{noofclient}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4 col-lg-4" *ngIf="project">
+                    <div class="card sh-11 hover-scale-up cursor-pointer">
+                        <div class="h-100 row g-0 card-body align-items-center py-3">
+                            <div class="col-auto pe-3">
+                                <div
+                                    class="bg-gradient-2 sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center">
+                                    <i data-cs-icon="check" class="text-white"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row gx-2 d-flex align-content-center" (click)="onPaymentClick()">
+                                    <div class="col-12 col-xl d-flex">
+                                        <div class="d-flex align-items-center lh-1-25">Project
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-auto">
+                                        <div class="cta-2 text-primary">{{noofproject}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4 col-lg-4" *ngIf="permission">
+                    <div class="card sh-11 hover-scale-up cursor-pointer">
+                        <div class="h-100 row g-0 card-body align-items-center py-3">
+                            <div class="col-auto pe-3">
+                                <div
+                                    class="bg-gradient-2 sh-5 sw-5 rounded-xl d-flex justify-content-center align-items-center">
+                                    <i data-cs-icon="check" class="text-white"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row gx-2 d-flex align-content-center" (click)="onPermissionClick()">
+                                    <div class="col-12 col-xl d-flex">
+                                        <div class="d-flex align-items-center lh-1-25">Permission
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-auto">
+                                        <div class="cta-2 text-primary">{{noofpermission}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row section-a">
+            <div class="col-xl-6 mb-5">
+                <h2 class="small-title">Today's Stats</h2>
+                <div class="card sh-35">
+                    <div class="card-body scroll-out h-100">
+                        <div class="scroll h-100">
+                            <div class="row g-0 mb-2">
+                                <div class="col-auto">
+                                    <div
+                                        class="sw-3 d-inline-block d-flex justify-content-start align-items-center h-100">
+                                        <div class="sh-3">
+                                            <i data-cs-icon="circle" class="text-primary align-top"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-4 h-100 justify-content-center">
+                                        <div class="d-flex flex-column">
+                                            <div class="text-alternate mt-n1 lh-1-25">New user registration
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="d-inline-block d-flex justify-content-end align-items-center h-100">
+                                        <div class="text-muted ms-2 mt-n1 lh-1-25">{{newuser}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-0 mb-2">
+                                <div class="col-auto">
+                                    <div
+                                        class="sw-3 d-inline-block d-flex justify-content-start align-items-center h-100">
+                                        <div class="sh-3">
+                                            <i data-cs-icon="circle" class="text-primary align-top"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-4 h-100 justify-content-center">
+                                        <div class="d-flex flex-column">
+                                            <div class="text-alternate mt-n1 lh-1-25">New Project
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="d-inline-block d-flex justify-content-end align-items-center h-100">
+                                        <div class="text-muted ms-2 mt-n1 lh-1-25">{{newproject}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-0 mb-2">
+                                <div class="col-auto">
+                                    <div
+                                        class="sw-3 d-inline-block d-flex justify-content-start align-items-center h-100">
+                                        <div class="sh-3">
+                                            <i data-cs-icon="square" class="text-secondary align-top"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-4 h-100 justify-content-center">
+                                        <div class="d-flex flex-column">
+                                            <div class="text-alternate mt-n1 lh-1-25">New Client</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="d-inline-block d-flex justify-content-end align-items-center h-100">
+                                        <div class="text-muted ms-2 mt-n1 lh-1-25">{{newclient}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-0 mb-2">
+                                <div class="col-auto">
+                                    <div
+                                        class="sw-3 d-inline-block d-flex justify-content-start align-items-center h-100">
+                                        <div class="sh-3">
+                                            <i data-cs-icon="square" class="text-secondary align-top"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-4 h-100 justify-content-center">
+                                        <div class="d-flex flex-column">
+                                            <div class="text-alternate mt-n1 lh-1-25">New Employee</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="d-inline-block d-flex justify-content-end align-items-center h-100">
+                                        <div class="text-muted ms-2 mt-n1 lh-1-25">{{newemployee}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-0 mb-2">
+                                <div class="col-auto">
+                                    <div
+                                        class="sw-3 d-inline-block d-flex justify-content-start align-items-center h-100">
+                                        <div class="sh-3">
+                                            <i data-cs-icon="square" class="text-secondary align-top"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-4 h-100 justify-content-center">
+                                        <div class="d-flex flex-column">
+                                            <div class="text-alternate mt-n1 lh-1-25">Total Role</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="d-inline-block d-flex justify-content-end align-items-center h-100">
+                                        <div class="text-muted ms-2 mt-n1 lh-1-25">{{totalrole}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 mb-5">
+                <h2 class="small-title">Total User</h2>
+                <div class="row g-2">
+                    <div class="col-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body py-0 d-flex">
+                                <div class="row g-0 d-flex w-100 align-items-center">
+                                    <div style="display: block;">
+                                        <!-- <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels"
+                                            [chartType]="pieChartType" [options]="pieChartOptions"
+                                            [plugins]="pieChartPlugins" [colors]="pieChartColor"
+                                            [legend]="pieChartLegend">
+                                        </canvas> style="height: 300px; width: 300px;" -->
+
+                                        <canvas baseChart 
+                                                [data]="pieChartData"
+                                                [type]="pieChartType"
+                                                [options]="pieChartOptions"
+                                                [plugins]="pieChartPlugins">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

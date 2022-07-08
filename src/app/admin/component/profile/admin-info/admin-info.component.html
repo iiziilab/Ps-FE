@@ -1,0 +1,113 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-0 pb-0 display-4" id="title">Admin</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-lg-12">
+
+        <div class="card mb-5" style="width: 60%;margin-left: auto; margin-right: auto;">
+            <div class="card-body row">
+                <div class="text-center">
+                    <label class="small-title" style="font-size: 20px;">Admin Info</label>
+                </div>
+                <form class="row g-3 tooltip-end-top" [formGroup]="adminform" novalidate autocomplete="off">
+
+                    <div class="col-6">
+                        <div class="filledcontrol">
+                            <label for="firstName" class="form-label">First Name :<span required
+                                    class="required-asterisk" [formGroup]="adminform"
+                                    [controlName]="'firstName'"></span></label>
+                            <input class="form-control" placeholder="Please enter the first name"
+                                formControlName="firstName"
+                                [class.is-invalid]="f.firstName.invalid && (f.firstName.dirty || (f.firstName.untouched && show))">
+                            <div *ngIf="f.firstName.invalid && (f.firstName.dirty || (f.firstName.untouched && show))">
+                                <small *ngIf="f.firstName.errors?.required" class="text-danger">First Name is
+                                    required</small>
+                            </div>
+                        </div>
+
+                        <div class="filledcontrol">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input class="form-control" placeholder="Please enter the last name"
+                                formControlName="lastName">
+                        </div>
+
+                        <div class="filledcontrol">
+                            <label for="email" class="form-label">Email :<span required class="required-asterisk"
+                                    [formGroup]="adminform" [controlName]="'email'"></span></label>
+                            <input class="form-control" placeholder="Please enter the email" formControlName="email"
+                                [ngClass]="{'is-invalid': f.email.errors && ((f.email.untouched && show) || f.email.dirty)}">
+                            <div *ngIf="f.email.errors && (f.email.untouched || f.email.dirty)"
+                                class="invalid-feedback">
+                                <div *ngIf="f.email.errors.required">Email is required</div>
+                            </div>
+                            <div *ngIf="f.email.errors" class="invalid-feedback">
+                                <div *ngIf="f.email.errors.email">Email address is not valid</div>
+                            </div>
+                        </div>
+
+                        <div class="filledcontrol">
+                            <label for="password" class="form-label">Password :<span required class="required-asterisk"
+                                    [formGroup]="adminform" [controlName]="'password'"></span></label>
+                            <div class="relative">
+                                <input class="form-control" id="password" [type]="hide ? 'password' : 'text'"
+                                    placeholder="Please enter the password" formControlName="password"
+                                    [ngClass]="{'is-invalid': f.password.errors && ((f.password.untouched && show) || f.password.dirty)}">
+                                <button type="button" name="client_password" [title]="passwordtitle"
+                                    class="button-reset color-inherit db o-60 absolute center-v right-1 hover-primary6"
+                                    (click)="viewpassword()"
+                                    [ngClass]="{'is-invalid': f.password.errors && f.password.dirty}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                                        width="24px" fill="#000000">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                    </svg>
+                                </button>
+                                <div *ngIf="f.password.errors && (f.password.untouched || f.password.dirty)"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f.password.errors?.required">Password is required</div>
+                                </div>
+                                
+                                <div *ngIf="f.password.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password.errors?.minlength">Password must be at least 6 characters
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-6">
+                        <img [src]="image" class="rounded-md mb-1 float-start sw-18 img-fluid" alt="thumb">
+                        <div class="filledcontrol" style="padding-bottom: 12px;">
+                            <label for="pic" class="form-label" style="padding-bottom: 5px;">Choose file </label>
+                            <input type="file" style="height: 37px!important;min-height: 37px!important;" id="pic"
+                                (change)="handleFileInput($event)" #fileInput accept="image/*"
+                                class="col-6 form-control">
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 col-3 mx-auto">
+                        <br>
+                        <button *ngIf="edit" class="btn btn-primary" (click)="onEdit()">
+                            Update Profile
+                        </button>
+                    </div>
+
+                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

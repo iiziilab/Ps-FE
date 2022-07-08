@@ -1,0 +1,131 @@
+<main>
+    <div class="fluid-container">
+        <div class="row">
+            <app-sidebar class="col-auto side-menu-container" [msgFromParent1]='toggle'></app-sidebar>
+            <div class="col">
+                <div class="page-title-container">
+                    <div class="row">
+                        <button class="col-auto toggle-menu" (click)="togglemenuclick()">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+                        </button>
+                        <div class="col-12 col-md-7">
+                            <h1 class="mb-1 pb-0 display-4" id="title">Project</h1>
+                            <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                                <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                                    <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                                    <li class="breadcrumb-item"><a routerLink="modeltitleurl">Add Cell</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 col-lg-12">
+                    <div>
+                        <label class="small-title" style="text-align: center;">Add Cell</label>
+                    </div>
+                    <div class="card mb-5" style="width: 55%;margin-left: auto; margin-right: auto;">
+                        <div class="card-body" >
+                            <form class="row g-3 tooltip-end-top" [formGroup]="modelform" novalidate
+                                autocomplete="off">
+
+                                <input type="hidden" formControlName="cellId">
+                                <div class="filledcontrol">
+                                    <label for="cellName" class="form-label">Cell Name :<span required
+                                            class="required-asterisk" [formGroup]="modelform"
+                                            [controlName]="'cellName'"></span></label>
+                                    <input class="form-control" placeholder="Please enter the cell name"
+                                        formControlName="cellName"
+                                        [class.is-invalid]="f.cellName.invalid && (f.cellName.touched || (f.cellName.untouched && show))">
+                                    <div
+                                        *ngIf="f.cellName.invalid && (f.cellName.touched || (f.cellName.untouched && show))">
+                                        <small *ngIf="f.cellName.errors?.required" class="text-danger">Cell Name is required</small>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2 col-1 mx-auto">
+
+                                    <button *ngIf="f.cellId.value" class="btn btn-primary" (click)="onEdit()">
+                                        Update
+                                    </button>
+
+                                    <button *ngIf="!f.cellId.value" class="btn btn-primary" (click)="onSave()">
+                                        Save
+                                    </button>
+                                </div>
+
+                                <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="btncenter">
+                        <div class="col-12 col-lg-12">
+                            <div style="padding-bottom: 12px;">
+                                <label class="small-title">Cell List</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-xs-12">
+                                    <table mat-table [dataSource]="dataSource" >
+
+                                        <ng-container matColumnDef="Sr.No">
+                                            <th mat-header-cell *matHeaderCellDef width ="20%"> SN. </th>
+                                            <td mat-cell *matCellDef="let element;let i = index">{{ (currentPage *
+                                                pageSize) + (i +
+                                                1) }}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="CellName">
+                                            <th mat-header-cell *matHeaderCellDef width ="50%"> Cell Name </th>
+                                            <td mat-cell *matCellDef="let element"> {{ element.cellName }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="action">
+                                            <th mat-header-cell *matHeaderCellDef width ="30%"> Action </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <a (click)="onView(element)" class="link" data-toggle="tooltip" data-placement="top"
+                                                    title="View Items"><i class="fa fa-eye"
+                                                        style="color: #000;"></i></a>
+                                                |
+                                                <a (click)="onEditCell(element)" class="link" data-toggle="tooltip" data-placement="top"
+                                                    title="Edit Cell"><i class="fa fa-edit"
+                                                        style="color: #22a6e9;;"></i></a>
+                                                |
+                                                <a (click)="onUpload(element)" class="link" data-toggle="tooltip" data-placement="top"
+                                                    title="Upload Excel File"><i class="fa fa-upload"
+                                                        style="color: green"></i></a>
+                                                |
+                                                <a (click)="onDeleteSelected(element)" class="link" data-toggle="tooltip"
+                                                    data-placement="top" title="Remove Project"><i class="fa fa-trash-o"
+                                                     style="color: red;"></i> </a> 
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                            (click)="selectedRow = selectedRow === row ? null : row"
+                                            [ngClass]="{ 'selected': row == selectedRow }" (click)="highlight()"></tr>
+                                    </table>
+
+                                    <div class="text-center mt-2" *ngIf="cell?.length === 0"><h4>No records found</h4></div>
+                                    <mat-paginator  #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
+                                        [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage"
+                                        (page)="handlePage($event)"  [hidden]="!cell.length" >
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button class="btn btn-primary m-1" routerLink="/admin/project/list">
+                            Back to List
+                        </button> -->
+                        <!-- <button class="btn btn-primary m-1" routerLink="/admin/dashboard">
+                        Back to Dashboard
+                    </button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<app-layout></app-layout>

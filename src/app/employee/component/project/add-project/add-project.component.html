@@ -1,0 +1,173 @@
+<main>
+    <div class="fluid-container">
+        <div class="row">
+            <app-sidebar class="col-auto side-menu-container" [toggle]='toggle'></app-sidebar>
+            <div class="col">
+                <div class="page-title-container">
+                    <div class="row">
+                        <button class="col-auto toggle-menu" (click)="togglemenuclick()">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+                        </button>
+                        <div class="col-12 col-md-7">
+                            <h1 class="mb-1 pb-0 display-4" id="title">Project</h1>
+                            <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                                <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                                    <li class="breadcrumb-item"><a routerLink="/employee/dashboard">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a routerLink="/employee/project/list">Project</a></li>
+                                    <li class="breadcrumb-item"><a [routerLink]="editprojectlink">Edit</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 col-lg-12">
+                    <div style="padding-bottom: 12px;">
+                        <label class="small-title" style="text-align: center;">Add project information here!</label>
+                    </div>
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <form class="row g-3 tooltip-end-top" [formGroup]="projectform" novalidate
+                                autocomplete="off">
+
+                                <div class="col-md-6 filledcontrol">
+                                    <label for="projectName" class="form-label">Project Name :<span required
+                                            class="required-asterisk" [formGroup]="projectform"
+                                            [controlName]="'projectName'"></span></label>
+                                    <input class="form-control" placeholder="Please enter the project name"
+                                        formControlName="projectName"
+                                        [class.is-invalid]="f.projectName.invalid && (f.projectName.touched || (f.projectName.untouched && show))">
+                                    <div
+                                        *ngIf="f.projectName.invalid && (f.projectName.touched || (f.projectName.untouched && show))">
+                                        <small *ngIf="f.projectName.errors?.required" class="text-danger">Project Name is required</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 filledcontrol">
+                                    <label for="projectNo" class="form-label">Project Number :<span required
+                                            class="required-asterisk" [formGroup]="projectform"
+                                            [controlName]="'projectNo'"></span></label>
+                                    <input class="form-control" type="text"
+                                        placeholder="Please enter the project number" formControlName="projectNo"
+                                        name="projectNo"
+                                        [class.is-invalid]="f.projectNo.invalid && (f.projectNo.touched || (f.projectNo.untouched && show))">
+                                    <div
+                                        *ngIf="f.projectNo.invalid && (f.projectNo.touched || (f.projectNo.untouched && show))">
+                                        <small *ngIf="f.projectNo.errors?.required" class="text-danger">Project Number
+                                            is
+                                            required</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 filledcontrol">
+                                    <label for="clientId" class="form-label">Client :<span required
+                                            class="required-asterisk" [formGroup]="projectform"
+                                            [controlName]="'clientId'"></span></label>
+                                    <mat-select formControlName="clientId" id="clientId"
+                                        placeholder="Please select the client" name="clientId"
+                                        class="custom-form-select" multiple
+                                        [ngClass]="{'is-invalid': f.clientId.errors  && (f.clientId.touched || (f.clientId.untouched && show))}"
+                                        (selectionChange)="onClientChange($event)" [(value)]="selectedclient">
+                                        <mat-option *ngFor="let c of client" [value]="c.clientId">{{c.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <div *ngIf="f.clientId.errors && (f.clientId.touched || (f.clientId.untouched && show))"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f.clientId.errors?.required">Client is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 filledcontrol form-group">
+                                    <label for="employeeId" class="form-label">Employee :<span required
+                                            class="required-asterisk" [formGroup]="projectform"
+                                            [controlName]="'employeeId'"></span></label>
+
+                                    <mat-select id="employeeId" class="custom-form-select" name="employeeId" multiple
+                                        placeholder="Please select the employee" [(value)]="selectedemployee"
+                                        formControlName="employeeId"
+                                        [ngClass]="{'is-invalid': f.employeeId.errors  && (f.employeeId.touched || (f.employeeId.untouched && show))}"
+                                        (selectionChange)="onEmployeeChange($event)">
+                                        <mat-option *ngFor="let e of employee" [value]="e.employeeId">{{e.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <div *ngIf="f.employeeId.errors && (f.employeeId.touched || (f.employeeId.untouched && show))"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f.employeeId.errors?.required">Employee is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 filledcontrol">
+                                    <label for="startDate" class="form-label">Start Date :<span required
+                                            class="required-asterisk" [formGroup]="projectform"
+                                            [controlName]="'startDate'"></span></label>
+                                    <input type="date" class="form-control"
+                                        placeholder="please select the starting date" id="startDate" [min]="minDate"
+                                        (input)="changeDate()" [value]="dateReceived" formControlName="startDate"
+                                        [ngClass]="{'is-invalid': f.startDate.errors  && (f.startDate.touched || (f.startDate.untouched && show))}">
+                                    <div *ngIf="f.startDate.errors && (f.startDate.touched || (f.startDate.untouched && show))"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f.startDate.errors?.required">Start Date is required</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 filledcontrol">
+                                    <label for="endDate" class="form-label">End Date :<span required
+                                            class="required-asterisk" [formGroup]="projectform"
+                                            [controlName]="'endDate'"></span></label>
+                                    <input type="date" class="form-control" placeholder="please select the end date"
+                                        id="endDate" formControlName="endDate" [disabled]="true"
+                                        [ngClass]="{'is-invalid': f.endDate.errors  && (f.endDate.touched || (f.endDate.untouched && show))}">
+                                    <div *ngIf="f.endDate.errors && (f.endDate.touched || (f.endDate.untouched && show))"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f.endDate.errors?.required">End Date is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 filledcontrol" *ngIf="canChangeStatus">
+                                    <label for="statusId" class="form-label">Status :<span required
+                                            class="required-asterisk" [formGroup]="projectform"
+                                            [controlName]="'statusId'"></span></label>
+                                    <mat-select id="statusId" class="custom-form-select" name="statusId"
+                                        placeholder="Please select the status" [(value)]="selectedstatus"
+                                        formControlName="statusId"
+                                        [ngClass]="{'is-invalid': f.statusId.errors  && (f.statusId.touched || (f.statusId.untouched && show))}"
+                                        (selectionChange)="onstatusChange($event)">
+                                        <mat-option *ngFor="let e of status" [value]="e.statusId">{{e.statusName}}
+                                        </mat-option>
+                                    </mat-select>
+
+                                    <div *ngIf="f.statusId.errors && (f.statusId.touched || (f.statusId.untouched && show))"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f.statusId.errors?.required">Status is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 filledcontrol">
+                                    <label for="description" class="form-label">Description :</label>
+                                    <textarea placeholder="Please enter the description" class="form-control"
+                                        id="description" name="description" rows="6"
+                                        formControlName="description"></textarea>
+                                </div>
+
+                                <div class="d-grid gap-2 col-1 mx-auto">
+
+                                    <button *ngIf="edit" class="btn btn-primary" (click)="onEdit()">
+                                        Update
+                                    </button>
+                                </div>
+
+                                <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="btncenter">
+                        <button class="btn btn-primary m-1" routerLink="/employee/project/list" style="font-size: 16px;">
+                            Back to List
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<app-layout></app-layout>

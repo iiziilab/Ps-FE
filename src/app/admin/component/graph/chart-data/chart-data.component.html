@@ -1,0 +1,130 @@
+
+ 
+
+  
+        <!-- <div class="col-2">
+            <div class="row">
+                <div class="btnrptcontainer">
+                    <mat-expansion-panel class="left-panle">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Chart</mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <button class="button-panle" [routerLink]="charturl">
+                            Chart
+                          </button>
+                          <button class="button-panle">
+                            Chart Data
+                          </button>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel class="left-panle">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Details</mat-panel-title>
+                          </mat-expansion-panel-header>
+                        <button class="button-panle" *ngIf="arrlength >= 1" [routerLink]="OneItem">
+                            1 Item
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 2" [routerLink]="TwoItem">
+                            2 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 3" [routerLink]="ThreeItem">
+                            3 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 4" [routerLink]="FourItem">
+                            4 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 5" [routerLink]="FiveItem">
+                            5 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 6" [routerLink]="SixItem">
+                            6 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 7" [routerLink]="SevenItem">
+                            7 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 8" [routerLink]="EightItem">
+                            8 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 9" [routerLink]="NineItem">
+                            9 Items
+                        </button>
+                        <button class="button-panle" *ngIf="arrlength >= 10" [routerLink]="TenItem">
+                            10 Items
+                        </button>
+                        <button class="button-panle" [routerLink]="counturl">
+                            Count
+                        </button>
+                    </mat-expansion-panel>
+                    
+                    <mat-expansion-panel class="left-panle">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Save</mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <button class="btn btn-primary m-1" (click)="savereport()" style="background: #60a1e5;">
+                            Save
+                        </button>
+                    </mat-expansion-panel>
+
+                  
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="col-10 table-body">
+            
+        </div> -->
+        <div class="card mb-2">
+            <div class="card-body h-100">
+                <div class="col-12 col-lg-12">
+                    <div style="padding-bottom: 12px;">
+                        <label class="small-title">Chart Data</label>
+                        <!-- <input id="copy_btn" type="button" value="copy"> -->
+                        <button (click)="copy()" class="btn-copy"><i matTooltip="Copy table" class="fa fa-clone" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-12">
+                            <table mat-table [dataSource]="dataSource">
+        
+                                <tr class="mat-row text-center mt-2" *matNoDataRow>
+                                    <td class="mat-cell" colspan="9999">
+                                        <h4>No records found</h4>
+                                    </td>
+                                </tr>
+                                  
+                                <ng-container matColumnDef="Sr.No">
+                                    <th mat-header-cell *matHeaderCellDef width="20%"> SN. </th>
+                                    <td mat-cell *matCellDef="let element;let i = index">{{ (i + 1) }}</td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="Items">
+                                    <th mat-header-cell *matHeaderCellDef width="20%"> Items </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element.items }} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="Reach">
+                                    <th mat-header-cell *matHeaderCellDef width="30%">Initial Reach </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element.reach }} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="IncrementalReach">
+                                    <th mat-header-cell *matHeaderCellDef width="25%"> Incremental Reach </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element.incrementalreach }} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="FinalReach">
+                                    <th mat-header-cell *matHeaderCellDef width="25%"> Final Reach </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element.finalreach }} </td>
+                                </ng-container>
+        
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    (click)="selectedRow = selectedRow === row ? null : row"
+                                    [ngClass]="{ 'selected': row == selectedRow }" (click)="highlight()"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+  

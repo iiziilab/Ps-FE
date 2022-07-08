@@ -1,0 +1,41 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-0 pb-0 display-4" id="title">Role</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0">
+                        <li class="breadcrumb-item"><a routerLink="/dashboard">Home/View</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-lg-12">
+        <div style="padding-bottom: 12px;">
+            <label class="small-title">Role Details</label>
+            <button type="button" class="btn btn-primary mb-2" style="float: right;font-size: 16px;"
+                (click)="onAddClient()">Add Role</button>
+        </div>
+        <div class="col-12 col-lg-12">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <div class="row g-3 tooltip-end-top">
+                        <div class="col-md-6">
+                            <label class="form-label col-md-4 viewlabel">Name :</label>
+                            <label for="role" class="form-label col-md-8">{{role}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btncenter">
+            <button class="btn btn-primary m-1" routerLink="/admin/role/list" style="font-size: 16px;">
+                Back to List
+            </button>
+        </div>
+    </div>
+</div>

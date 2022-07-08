@@ -1,0 +1,158 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">User</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/user/list">User</a></li>
+                        <li class="breadcrumb-item"><a>{{title}}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-12 col-lg-12">
+        <div style="padding-bottom: 12px;">
+            <label class="small-title" style="text-align: center;">Add User information here!</label>
+        </div>
+        <div class="card mb-5">
+            <div class="card-body">
+                <form class="row g-3 tooltip-end-top" [formGroup]="userform" novalidate autocomplete="off">
+
+                    <div class="col-md-6 filledcontrol">
+                        <label for="firstName" class="form-label">First Name :<span required class="required-asterisk"
+                                [formGroup]="userform" [controlName]="'firstName'"></span></label>
+                        <input class="form-control" placeholder="Please enter the first name"
+                            formControlName="firstName"
+                            [class.is-invalid]="f.firstName.invalid && (f.firstName.dirty || (f.firstName.untouched && show))">
+                        <div *ngIf="f.firstName.invalid && (f.firstName.dirty || (f.firstName.untouched && show))">
+                            <small *ngIf="f.firstName.errors?.required" class="text-danger">First Name is
+                                required</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 filledcontrol">
+                        <label for="lastName" class="form-label">Last Name :</label>
+                        <input class="form-control" placeholder="Please enter the last name" formControlName="lastName">
+                    </div>
+
+                    <div class="col-md-6 filledcontrol">
+                        <label for="email" class="form-label">Email :<span required class="required-asterisk"
+                                [formGroup]="userform" [controlName]="'email'"></span></label>
+                        <input class="form-control" placeholder="Please enter the email" formControlName="email"
+                            [ngClass]="{'is-invalid': f.email.errors && ((f.email.untouched && show) || f.email.dirty)}">
+                        <div *ngIf="f.email.errors && ((f.email.untouched && show) || f.email.dirty)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                        </div>
+                        <div *ngIf="f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.email">Email address is not valid</div>
+                        </div>
+                        <div *ngIf="istaken" class="text-danger">{{emailmsg}}</div>
+                    </div>
+
+                    <div class="col-md-6 filledcontrol">
+                        <label for="designation" class="form-label">Designation :<span required
+                                class="required-asterisk" [formGroup]="userform"
+                                [controlName]="'designation'"></span></label>
+                        <mat-select id="designation" class="custom-form-select" name="designation" multiple
+                            placeholder="Please select the designation" [(value)]="selecteddesignation"
+                            formControlName="designation" (change)="ondesignationChange($event)"
+                            [ngClass]="{'is-invalid': f.designation.errors  && (f.designation.dirty || (f.designation.untouched && show))}">
+                            <mat-option value="Supervisor">Supervisor</mat-option>
+                            <mat-option value="Manager">Manager</mat-option>
+                            <mat-option value="Marketing">Marketing</mat-option>
+                        </mat-select>
+                        <div *ngIf="f.designation.errors && (f.designation.dirty || (f.designation.untouched && show))"
+                            class="invalid-feedback">
+                            <div *ngIf="f.designation.errors.required">Designation is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 filledcontrol">
+                        <label for="roleId" class="form-label">Role :<span required class="required-asterisk"
+                                [formGroup]="userform" [controlName]="'roleId'"></span></label>
+                        <mat-select formControlName="roleId" id="roleId" placeholder="Please select the role"
+                            name="roleId" class="custom-form-select" multiple
+                            [ngClass]="{'is-invalid': f.roleId.errors  && (f.roleId.dirty || (f.roleId.untouched && show))}"
+                            (selectionChange)="onroleChange($event)" [(value)]="selectedrole">
+                            <mat-option *ngFor="let c of role" [value]="c.roleId">{{c.roleName}}</mat-option>
+                        </mat-select>
+                        <div *ngIf="f.roleId.errors && (f.roleId.dirty || (f.roleId.untouched && show))"
+                            class="invalid-feedback">
+                            <div *ngIf="f.roleId.errors.required">Role is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 filledcontrol form-group">
+                        <label for="statusId" class="form-label">Status :<span required class="required-asterisk"
+                                [formGroup]="userform" [controlName]="'statusId'"></span></label>
+                        <mat-select formControlName="statusId" id="statusId" placeholder="Please select the status"
+                            name="statusId" class="custom-form-select"
+                            [ngClass]="{'is-invalid': f.statusId.errors  && (f.statusId.dirty || (f.statusId.untouched && show))}"
+                            (selectionChange)="onstatusChange($event)" [(value)]="selectedstatus">
+                            <mat-option *ngFor="let c of status" [value]="c.statusId">{{c.statusName}}</mat-option>
+                        </mat-select>
+                        <div *ngIf="f.statusId.errors && (f.statusId.dirty || (f.statusId.untouched && show))"
+                            class="invalid-feedback">
+                            <div *ngIf="f.statusId.errors?.required">Status is required</div>
+                        </div>
+                    </div>
+
+                    <div class="pass col-md-12 filledcontrol">
+                        <label for="password" class="form-label">Password :<span required class="required-asterisk"
+                                [formGroup]="userform" [controlName]="'password'"></span></label>
+                        <div class="col-lg-6 relative">
+                            <input class="form-control" id="password" [type]="hide ? 'password' : 'text'"
+                                placeholder="Please enter the password" formControlName="password"
+                                [ngClass]="{'is-invalid': f.password.errors && ((f.password.untouched && show) || f.password.dirty)}">
+                            <button type="button" style="margin-right: 27px;" name="generate_password"
+                                title="Generate password"  (click)="generatepassword()"
+                                class="button-reset color-inherit db o-60 absolute center-v right-1 hover-primary6"  
+                                [ngClass]="{'is-invalid': f.password.errors && (f.password.touched || (show && f.password.untouched))}">
+                                <img src="/assets/img/password.jpg" width="22" height="22" alt="Generate password">
+                            </button>
+                            <button type="button" name="client_password" [title]="passwordtitle"
+                                class="button-reset color-inherit db o-60 absolute center-v right-1 hover-primary6"
+                                (click)="viewpassword()" [ngClass]="{'is-invalid': f.password.errors && ((f.password.untouched && show) || f.password.dirty)}">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                </svg>
+                            </button>
+                            <div *ngIf="f.password.errors && (f.password.untouched || f.password.dirty)"
+                                class="invalid-feedback">
+                                <div *ngIf="f.password.errors?.required">Password is required</div>
+                            </div>
+                            <div *ngIf="f.password.errors && (f.password.dirty || (f.password.untouched && show))"
+                                class="invalid-feedback">
+                                <div *ngIf="f.password.errors?.minlength">Password must be at least 6 characters
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-3 mx-auto">
+
+                        <button *ngIf="edit" class="btn btn-primary" (click)="onEdit()">
+                            Update
+                        </button>
+
+                        <button *ngIf="save" class="btn btn-primary" (click)="onSave()">
+                            Save
+                        </button>
+                        <button class="btn btn-primary m-1" routerLink="/admin/user/list" style="font-size: 16px;">
+                            Back to List
+                        </button>
+                    </div>
+
+                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

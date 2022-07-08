@@ -1,0 +1,28 @@
+<button mat-dialog-close class="close-button">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+<h2 mat-dialog-title class="text-center">{{ title }}</h2>
+
+<mat-divider></mat-divider>
+<br>
+
+<form>
+    <mat-dialog-content>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                Are you sure you want to change the status?      
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                &nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="col-6" style="margin: auto !important;">
+        <button mat-raised-button class="col-md-3 col-lg-3 btn_inactive" (click)="Inactive()">Inactive</button>
+        <button mat-raised-button class="col-md-3 col-lg-3 btn_active" (click)="Active()">Active</button>
+    </mat-dialog-actions>
+</form>

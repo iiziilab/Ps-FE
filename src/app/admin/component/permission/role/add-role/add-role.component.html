@@ -1,0 +1,74 @@
+<div class="col">
+    <div class="page-title-container">
+
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Role</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/role/list">Role</a></li>
+                        <li class="breadcrumb-item"><a>{{title}}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-12">
+        <div class="card mb-5" style="width: 50%;margin-left: auto; margin-right: auto;">
+
+            <div class="card-body row">
+                <div class="text-center">
+                    <label class="small-title" style="font-size: 20px;">User Role</label>
+                </div>
+                <form class="row g-3 tooltip-end-top" [formGroup]="roleform" novalidate autocomplete="off">
+
+                    <div class="filledcontrol">
+                        <label for="roleName" class="form-label">Role Name :<span required class="required-asterisk"
+                                [formGroup]="roleform" [controlName]="'roleName'"></span></label>
+                        <input class="form-control" placeholder="Please enter the role name" formControlName="roleName"
+                            [class.is-invalid]="f.roleName.invalid && (f.roleName.dirty || (f.roleName.untouched && show))">
+                        <div *ngIf="f.roleName.invalid && (f.roleName.touched || (f.roleName.untouched && show))">
+                            <small *ngIf="f.roleName.errors?.required" class="text-danger">Role is
+                                required</small>
+                        </div>
+                    </div>
+
+
+                    <div class="filledcontrol form-group">
+                        <label for="statusId" class="form-label">Status :<span required class="required-asterisk"
+                                [formGroup]="roleform" [controlName]="'statusId'"></span></label>
+                        <mat-select formControlName="statusId" id="statusId" placeholder="Please select the status"
+                            name="statusId" class="custom-form-select"
+                            [ngClass]="{'is-invalid': save && f.statusId.errors  && (f.statusId.touched || (f.statusId.untouched && show))}"
+                            (selectionChange)="onstatusChange($event)" [(value)]="selectedstatus">
+                            <mat-option *ngFor="let c of status" [value]="c.statusId">{{c.statusName}}</mat-option>
+                        </mat-select>
+                        <div *ngIf="save && f.statusId.errors && (f.statusId.touched || (f.statusId.untouched && show))"
+                            class="invalid-feedback">
+                            <div *ngIf="f.statusId.errors?.required">Status is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mx-auto">
+
+                        <button *ngIf="edit" class="btn btn-primary" (click)="onEdit()">
+                            Update
+                        </button>
+
+                        <button *ngIf="save" class="btn btn-primary" (click)="onSave()">
+                            Save
+                        </button>
+                        <button class="btn btn-primary m-1" routerLink="/admin/role/list" style="font-size: 16px;">
+                            Back to List
+                        </button>
+                    </div>
+
+                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,187 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Menu</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">{{ pName }}</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="listLink">{{CellName}}</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="modeltitleurl">Interactive</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-12">
+        <div class="row">
+            <div class="headcell col-lg-10">
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Cell</mat-label>
+                    <mat-select  [(value)]="selectedCell" (selectionChange)="onCellChange($event)">
+                          <mat-option *ngFor="let p of cellList" [value]="p.cellId">
+                                         {{ p.cellName }}
+                          </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-stroked-button (click)="onConfiguration()">Configuration</button>
+               <button mat-stroked-button (click)="onOptimized()" [disabled]="true">Optimization</button>
+               <!-- <button mat-stroked-button>How To Use</button> -->
+               <button mat-stroked-button>Quick Optimization </button>
+               <button mat-stroked-button (click)="onInteractive()">Interactive</button>
+            </div>
+
+            <div class="col-lg-2 reach-text">
+                <span for="reach" class="highlight">Reach :</span>
+                <span for="reachvalue" class="highlight">{{Reach}}</span>
+            </div>
+
+
+            <!-- <div class="headbody col-7">
+                <mat-form-field appearance="fill">
+                    <mat-label>View Groups</mat-label>
+                    <mat-select [(value)]="selectedviewgroup" (selectionChange)="onViewGroupChange($event)">
+                        <mat-option value="Reset">Reset</mat-option>
+                        <mat-option value="Show Selected">Show Selected</mat-option>
+                        <mat-option value="Expand/Collapse Groups" (click)="$event ? masterExpandCollapseGroups() : null">Expand/Collapse Groups</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Inclusion Set</mat-label>
+                    <mat-select [(value)]="selectedInclusion" (selectionChange)="onInclusionChange($event)">
+                        <mat-option value="Default">Default</mat-option>
+                        <mat-option value="Select">Select</mat-option>
+                        <mat-option value="Unselect">Unselect</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Export</mat-label>
+                    <mat-select [(value)]="selectedexport" (selectionChange)="onExportChange($event)">
+                        <mat-option value="Export To Excel">Export To Excel</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div> -->
+
+        </div>
+        <div class="row">
+            <div class="col-md-11">
+                <mat-form-field  appearance="fill">
+                    <mat-label>Subgroups</mat-label>
+                    <mat-select  [(value)]="selectedCell" (selectionChange)="onCellChange($event)">
+                        <mat-option value="Total Segment">Total Segment</mat-option>
+                        <mat-option value="Segment 0">Segment 0</mat-option>
+                        <mat-option value="Segment 1">Segment 1</mat-option>
+                        <mat-option value="Segment 2">Segment 2</mat-option>
+                        <mat-option value="Segment 3">Segment 3</mat-option>
+                        <mat-option value="Segment 4">Segment 4</mat-option>
+                     </mat-select>
+               </mat-form-field>
+            </div>
+            <div class="col-md-1">
+                <button mat-raised-button matTooltip="Go Back" (click)="goBackCell()" class="btn-back"> <i class="fa fa-arrow-left" aria-hidden="true"></i> </button>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+        <div>
+            <label for="threshold" class="form-label">MD Threshold :</label>
+            <input class="form-control input-cell" [value]="threshold" type="number" (keyup)="setThreshold($event)">
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 left-sideI">
+                <mat-expansion-panel class="left-panle" [expanded]="isFirst">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> View Groups </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button class="button-panle" (click)="onViewGroupClick('Reset')">Reset</button>
+                      <button class="button-panle" (click)="onViewGroupClick('Show Selected')">Show Selected</button>
+                      <button class="button-panle" (click)="$event ? masterExpandCollapseGroups() : null">Expand/Collapse Groups</button>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="left-panle" [expanded]="isSecond">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Inclusion Set </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button class="button-panle" (click)="onInclusionChange('Default')">Default</button>
+                      <button class="button-panle" (click)="onInclusionChange('Select')">Select</button>
+                      <button class="button-panle" (click)="onInclusionChange('Unselect')">Unselect</button>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="left-panle" [expanded]="isThrid">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> Export </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button (click)="onExportChange($event)" class="button-panle"> 
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                        Export To Excel
+                        </button>
+                </mat-expansion-panel>
+            </div>
+            <div class="col-lg-9 cart-height1">
+                <div class="card mb-5" #TABLE>
+                    <table class="table table-hover table-responsive-xl">
+                        <thead *ngIf="!showHeader"
+                            style="color: rgba(0,0,0,.54);font-family: Roboto, 'Helvetica Neue', sans-serif !important;">
+                            <th style="width:15%"> Include </th>
+                            <th style="width:40%"> Item </th>
+                            <th style="width:15%"> Total Reach </th>
+                            <th style="width:15%"> Incremental Reach </th>
+                            <th style="width:15%"> Rank </th>
+                        </thead>
+        
+                        <tbody>
+                            <ng-container *ngFor="let data of category; let i = index">
+                                <tr>
+                                    <td colspan="5"> <button *ngIf="data[i].Menu.category != null" class="expandable-btn"
+                                     (click)="data[i].Menu.isExpanded = !data[i].Menu.isExpanded"><span class="material-icons">
+                                     {{ data[i].Menu.isExpanded == true ? 'chevron_right' : 'expand_more' }}</span></button> {{data[i].Menu.category}} </td>
+                                </tr>
+                                <ng-container *ngIf="!data[i].Menu.isExpanded">
+                                    <!-- <tr>
+                                        <td colspan="5"> <button *ngIf="data[i].category != null" class="expandable-btn"
+                                         (click)="data[i].isExpanded = !data[i].isExpanded"><span class="material-icons">
+                                         {{ data[i].isExpanded == true ? 'chevron_right' : 'expand_more' }}</span></button> {{data[i].category}} </td>
+                                    </tr>
+                                    <ng-container *ngIf="!data[i].isExpanded"> -->
+                                    <tr *ngFor="let details of findDetails(data[i].Menu);  let j = index">
+                                        <td *ngIf="details.Menu.category != null">
+                                            <mat-checkbox (change)="chkInclude($event,details.Menu)"
+                                                [checked]="details.Menu.include" style="padding-left: 20px;">
+                                            </mat-checkbox>
+                                        </td>
+                                        <td> Item {{details.value}} </td>  
+                                        <td> {{details.reach}}% </td>
+                                        <td> {{details.incrementalreach}}% </td>
+                                        <td> {{details.rank}} </td>
+                                        
+                                    </tr>
+                                    <!--{{ details.Menu.shortDescription }}-->
+
+                                    <!-- <tr *ngFor="let details of findDetails(data[i]);  let j = index">
+                                        <td *ngIf="details.category != null">
+                                            <mat-checkbox (change)="chkInclude($event,details)"
+                                                [checked]="details.include" style="padding-left: 20px;">
+                                            </mat-checkbox>
+                                        </td>
+                                        <td> Item {{j+1}} </td>  
+                                        <td> {{details.reach}} </td>
+                                        <td> {{details.incrementalreach}} </td>
+                                        <td> {{details.rank}} </td>
+                                        
+                                    </tr> -->
+                                </ng-container>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="btncenter">
+        </div>
+    </div>
+</div>

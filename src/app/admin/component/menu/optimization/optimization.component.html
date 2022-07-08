@@ -1,0 +1,68 @@
+<!-- <app-loader *ngIf="loading">{{ loading }}</app-loader> -->
+<div class="col">
+    <!-- <div class="page-title-container">
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Cell</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">{{pName}}</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="listLink">{{cellName}}</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="modeltitleurl">Upload Data</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="col-12 col-lg-12" style="margin-left: 15px;">
+        
+        <!-- <div class="row">
+        </div> -->
+
+        <div style="padding-bottom: 12px;">
+            <label class="small-title" style="text-align: center;">Upload Alternative File in Excel format</label>
+        </div>
+        <div class="card mb-5 centercard">
+            <div class="card-body">
+                <form class="row g-3 tooltip-end-top" [formGroup]="modelform" novalidate autocomplete="off">
+
+                <!-- <div class="filledcontrol">
+                        <label for="items" class="form-label">Number of Items :<span required
+                                class="required-asterisk" [formGroup]="modelform"
+                                [controlName]="'items'"></span></label>
+                                <input type="number" class="form-control" min="1" max="8" placeholder="Please enter the number of items in the bundles" 
+                                formControlName="items" [class.is-invalid]="f.items.invalid && (f.items.dirty || (f.items.untouched && show))">
+                        <div *ngIf="f.items.invalid && (f.items.dirty || (f.items.untouched && show))">
+                            <small *ngIf="f.items.errors?.required" class="text-danger">Item number is
+                                required</small>
+                            <small *ngIf="f.items.errors?.min" class="text-danger">Minimum number should be 1</small>
+                            <small *ngIf="f.items.errors?.max" class="text-danger">Number should not be greater than 8</small>
+                        </div>
+                    </div>
+                accept=".csv, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                -->
+
+                    <div class="filledcontrol mb-2">
+                        <label for="mpic" class="form-label">Upload Multiple File </label>
+                        <input type="file" 
+                            multiple class="form-control" id="mpic" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="onChange($event)" formControlName="mpic"
+                            [class.is-invalid]="f.mpic.invalid">
+                        <div *ngIf="f.mpic.invalid && show">
+                            <small *ngIf="f.mpic.errors?.required" class="text-danger">Please select the file.</small>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 col-1 mx-auto">
+                        <button class="btn btn-primary" (click)="uploadMfile($event)">
+                            <!-- <i class="fa fa-spinner fa-spin" *ngIf="loading"></i> -->
+                        <span class="btntext">Save</span></button>
+                    </div>
+                    <div *ngIf="lmessage" class="alert alert-success mt-3 mb-0">{{lmessage}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

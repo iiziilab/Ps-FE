@@ -1,0 +1,109 @@
+            <div class="col">
+                <div class="page-title-container">
+                    <div class="row">
+                        <div class="col-12 col-md-7">
+                            <h1 class="mb-1 pb-0 display-4" id="title">Client</h1>
+                            <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                                <ul class="breadcrumb pt-0" style="font-size: 15px;"> 
+                                    <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a routerLink="/admin/client/list">Client</a></li>
+                                    <li class="breadcrumb-item"><a routerLink="/admin/client/view">View</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="pt-2 pb-2">
+                            <label class="small-title">Clients Details</label>
+                            <button type="button" class="btn btn-primary" style="float: right;font-size: 16px;"
+                                (click)="onAddClient()">Add Client</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-12 client-body">
+                   
+                    <div class="">
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <div class="row g-3 tooltip-end-top">
+                                    <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">Name :</label>
+                                        <label for="name" class="form-label col-md-8">{{name}}</label>
+                                    </div>
+
+                                    <!-- <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">Email :</label>
+                                        <label for="email" class="form-label col-md-8">{{email}}</label>
+                                    </div> -->
+
+                                    <!-- <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">Contact 1 :</label>
+                                        <label for="contact1" class="form-label col-md-8">{{contact1 === "" ? 'N/A' : contact1}}</label>
+                                    </div> -->
+
+                                    <!-- <div class="col-md-6" *ngIf="contact2">
+                                        <label class="form-label col-md-4 viewlabel">Contact 2 : </label>
+                                        <label for="contact2" class="form-label col-md-8">{{contact2 === "" ? 'N/A' : contact2}}</label>
+                                    </div> -->
+
+                                    <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">Company Address :</label>
+                                        <label for="address" class="form-label col-md-8">{{address === "" ? 'N/A' : address}}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">State :</label>
+                                        <label for="state" class="form-label col-md-8">{{state === null ? 'N/A' : state}}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label col-md-4 viewlabel">Country :</label>
+                                        <label for="country" class="form-label col-md-8">{{country === "" ? 'N/A' : country}}</label>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label class="form-label col-md-2 viewlabel">Description : </label>
+                                        <label for="description" class="form-label col-md-10">{{description === "" ? 'N/A' : description}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <h3 class="small-title">Client Credential Details</h3>
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <div class="row g-3 tooltip-end-top">
+                                <div class="col-md-10">
+                                    <label class="form-label col-md-4 viewlabel">Email :</label>
+                                    <label for="name" class="form-label col-md-8">{{cemail}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <h3 class="small-title">Employee Details</h3>
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <div *ngFor="let emp of employee; let i = index" class="row g-3 tooltip-end-top">
+                                <label class="emplabel">Employee {{i+1}}</label>
+                                <div class="col-md-4">
+                                    <label class="form-label col-md-3 viewlabel">Name :</label>
+                                    <label for="name" class="form-label col-md-9">{{emp.name}}</label>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label class="form-label col-md-2 viewlabel">Email :</label>
+                                    <label for="name" class="form-label col-md-10">{{emp.email}}</label>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label col-md-4 viewlabel">Contact :</label>
+                                    <label for="email" class="form-label col-md-8">{{emp.contactNo === '' ? 'N/A' : emp.contactNo}}</label>
+                                </div>
+                                    <mat-divider class="mb-2"></mat-divider>
+                            </div>
+                        </div>
+                        <div class="btncenter">
+                            <button class="btn btn-primary m-1" style="font-size: 16px;" routerLink="/admin/client/list">
+                                Back to List
+                            </button>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>

@@ -1,0 +1,49 @@
+<div class="col">
+    <div class="page-title-container">
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Project</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/project/list">Project</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="listLink">Cell</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="modeltitleurl">Upload</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-lg-12">
+        <div class="row">
+          
+        </div>
+        <div style="padding-bottom: 12px;">
+            <label class="small-title" style="text-align: center;">Upload</label>
+        </div>
+        <div class="card mb-5" style="width: 50%;margin-left: auto; margin-right: auto;">
+            <div class="card-body">
+                <form class="row g-3 tooltip-end-top" [formGroup]="modelform" novalidate autocomplete="off">
+
+                    <div class="filledcontrol">
+                        <label for="pic" class="form-label">Upload File </label>
+                        <input type="file" accept=".csv" multiple
+                            class="form-control" id="pic" (change)="onFileChange($event)"
+                            style="height: 37px!important;min-height: 37px!important;"
+                             formControlName="pic">
+                        
+                    </div>
+
+                    <!-- <div class="d-grid gap-2 col-1 mx-auto">
+                        <button class="btn btn-primary" (click)="uploadfile($event)">Save</button>
+                    </div> -->
+
+                    <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

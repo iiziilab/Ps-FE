@@ -1,0 +1,67 @@
+<div class="col">
+    <div class="page-title-container">
+
+        <div class="row">
+
+            <div class="col-12 col-md-7">
+                <h1 class="mb-1 pb-0 display-4" id="title">Role</h1>
+                <nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
+                    <ul class="breadcrumb pt-0" style="font-size: 15px;">
+                        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/admin/permission/list">Permission</a></li>
+                        <li class="breadcrumb-item"><a>{{title}}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div style="padding-bottom: 12px;">
+        <label class="small-title" style="text-align: center;">Add User Permission here!</label>
+    </div>
+    <div class="card mb-5" style="width: 50%;margin-left: auto; margin-right: auto;">
+        <div class="card-body">
+            <form class="row g-3 tooltip-end-top" [formGroup]="permissionform" novalidate autocomplete="off">
+                <div class="filledcontrol">
+                    <label for="moduleName" class="form-label">Module Name :<span required class="required-asterisk"
+                            [formGroup]="permissionform" [controlName]="'moduleName'"></span></label>
+                    <input class="form-control" placeholder="Please enter the module name" formControlName="moduleName"
+                        [class.is-invalid]="f.moduleName.invalid && (f.moduleName.dirty || (f.moduleName.untouched && show))">
+                    <div *ngIf="f.moduleName.invalid && (f.moduleName.dirty || (f.moduleName.untouched && show))">
+                        <small *ngIf="f.moduleName.errors?.required" class="text-danger">module is
+                            required</small>
+                    </div>
+                </div>
+                <div class="filledcontrol form-group">
+                    <label for="statusId" class="form-label">Status :<span required class="required-asterisk"
+                            [formGroup]="permissionform" [controlName]="'statusId'"></span></label>
+                    <select id="statusId" class="custom-form-select" name="statusId"
+                        data-placeholder="Please select the status" [(value)]="selectedstatus"
+                        formControlName="statusId"
+                        [ngClass]="{'is-invalid': save && f.statusId.errors  && (f.statusId.dirty || (f.statusId.untouched && show))}"
+                        (change)="onstatusChange($event)">
+                        <option *ngFor="let e of status" [value]="e.statusId">{{e.statusName}}</option>
+                    </select>
+                    <div *ngIf="save && f.statusId.errors && (f.statusId.dirty || (f.statusId.untouched && show))"
+                        class="invalid-feedback">
+                        <div *ngIf="f.statusId.errors.required">Status is required</div>
+                    </div>
+                </div>
+                <div class="col-6 mx-auto">
+
+                    <button *ngIf="edit" class="btn btn-primary" (click)="onEdit()">
+                        Update
+                    </button>
+
+                    <button *ngIf="save" class="btn btn-primary" (click)="onSave()">
+                        Save
+                    </button>
+                    <button class="btn btn-primary m-1" routerLink="/admin/permission/list" style="font-size: 16px;">
+                        Back to List
+                    </button>
+                </div>
+
+                <div *ngIf="message" class="alert alert-success mt-3 mb-0">{{message}}</div>
+            </form>
+        </div>
+    </div>
+</div>

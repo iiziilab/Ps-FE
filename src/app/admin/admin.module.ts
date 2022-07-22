@@ -76,6 +76,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { BreadcrumbComponent } from './component/graph/breadcrumb/breadcrumb.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { QuicknoofitemComponent } from './component/menu/quicknoofitem/quicknoofitem.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     SevenitemsComponent,
     EightitemsComponent,
     ShowMessageComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    QuicknoofitemComponent
   ],
   imports: [
     CommonModule,

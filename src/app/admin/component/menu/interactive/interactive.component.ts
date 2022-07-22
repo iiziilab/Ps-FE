@@ -262,6 +262,7 @@ export class InteractiveComponent implements OnInit {
       var result = await this.services.getMenuByCid(this.id).toPromise();
       this.menu = result;
       let num = 1;
+      
       result.forEach((x:Menu)=>{
         const itr : InteractiveMenu = {
           Menu : x,
@@ -466,6 +467,7 @@ export class InteractiveComponent implements OnInit {
           single++;
           sin1 = this.itemStr1[i-1];
       }
+      
       arrTest.sort(function(a: any, b: any){return b.value - a.value});
       for(var i = 1; i <= arrTest.length; i++){
         let arrt1: any = [];
@@ -789,7 +791,6 @@ export class InteractiveComponent implements OnInit {
         }
       //}
     })
-    
   }
 //33.76439002 no.7 row
   data_1 = [
@@ -3251,7 +3252,6 @@ export class InteractiveComponent implements OnInit {
   }
 
   interactiveitemreport(p:Menu){
-    
     let arrArr: any = [];
     let num = 0; //this.obj.length -1;
     for(var i = 0; i < this.objItem.length; i ++){

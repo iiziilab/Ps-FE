@@ -1,11 +1,11 @@
-<div class="card mb-2">
+<div class="card">
     <div class="card-body h-100">
-        <div class="table-mt">
+        <!-- <div class="table-mt"> -->
             <div style="padding-bottom: 12px;">
                 <label class="small-title">4 Item</label>
                 <button class="btn-copy" (click)="copy()"><i matTooltip="Copy table" class="fa fa-clone" aria-hidden="true"></i></button>
             </div>
-            <div class="">
+            <div class="table-details">
                 <table mat-table [dataSource]="dataSource">
 
                     <tr class="mat-row text-center mt-2" *matNoDataRow>
@@ -83,6 +83,6 @@
                 </table>
                 <h5>*NA denote respective item combination not found in previous combination.</h5>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 </div>

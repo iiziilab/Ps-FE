@@ -11,11 +11,14 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cell } from 'src/app/model/cell.model';
 import { Calc } from '../../cell/calculation/Calc';
-import { matrix, matrix1, matrix2, matrix3 } from '../../cell/calculation/matrix';
+import { matrix, matrix1, matrix2, matrix3, matrix6 } from '../../cell/calculation/matrix';
 import { vector, vector1 } from '../../cell/calculation/vector';
 import { Alts } from '../../cell/calculation/Alt.model';
 import { ShowMessageComponent } from '../show-message/show-message.component';
 import { NoofitemComponent } from '../noofitem/noofitem.component';
+import { QuicknoofitemComponent } from '../quicknoofitem/quicknoofitem.component';
+import { CalcInteractive } from '../../cell/calculation/CalcInteractive';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-select-menu',
@@ -157,6 +160,7 @@ i.fa.fa-compass {
   height: 20px;
   width: 200px;
 }
+
 `
   ],
 })
@@ -226,7 +230,6 @@ export class SelectMenuComponent implements OnInit {
       cellId : [''],project:null,
       projectId: [''],
       threshold: ['130',Validators.required]
-     
     })
     this.threshold = 130;
     this.showSelected = false;
@@ -257,8 +260,8 @@ export class SelectMenuComponent implements OnInit {
     }else{
       this.router.navigate(['noauthorize']);
     }
+ 
     console.log(252,this.findDetails([0]));
-    
     var resu1 = await this.services.getAllItemReports(this.id).toPromise();
     
     this.data_01 = JSON.parse(resu1.data_1);
@@ -343,6 +346,7 @@ export class SelectMenuComponent implements OnInit {
       })
     }
   }
+
   onViewGroupChange(e:any){
     this.showSelected = false;
     if(e.value === "Reset"){
@@ -361,15 +365,16 @@ export class SelectMenuComponent implements OnInit {
       })
     }
   }
+
   masterExpandCollapseGroups() {
     this.showSelected = false;
     this.showFilter = false;
     this.isTableExpanded = !this.isTableExpanded;
-
     this.dataSource.data.forEach((data: any) => {
       data.isExpanded = !data.isExpanded
-    })
-  }
+  })
+}
+
   masterViewGroupReset() {
     this.showFilter = false;
     this.showSelected = false;
@@ -378,14 +383,16 @@ export class SelectMenuComponent implements OnInit {
     })
     this.category = [ ...new Set( this.menu.map(obj => obj.categoryIndex) ) ].map(o=> { return this.menu.filter(obj => obj.categoryIndex === o) } );
   }
+
   masterViewGroupSelected() {
     this.showFilter = false;
     this.showSelected = true;
     this.dataSource.data.forEach((data: any) => {
-      data.isExpanded = false
+      data.isExpanded = false;
     })
     this.category = [ ...new Set( this.menu.map(obj => obj.categoryIndex ) ) ].map(o=> { return this.menu.filter(obj => obj.categoryIndex === o) } ).filter(e => e.length);;
-  }
+ }
+
   dropicon:any;
 
   chkConsolidation(ob: MatCheckboxChange,m:any){
@@ -535,6 +542,7 @@ export class SelectMenuComponent implements OnInit {
       data => {
       try {
             localStorage.removeItem("chartData");
+            localStorage.removeItem("chartData1");
             this.numberchosen = Number(data.numberchosen);
             if(this.considerationsetitem < this.forcedintoitem || this.considerationsetitem == 0){
                 this.show_message_dialog = true;
@@ -565,12 +573,101 @@ export class SelectMenuComponent implements OnInit {
         }
     );
   }
+
+  async onQuickOptimized(): Promise<void>{
+    //this.displayStyle = "block";
+    const dialogConfig1 = new MatDialogConfig();
+    dialogConfig1.disableClose = true;
+    dialogConfig1.autoFocus = true;
+    dialogConfig1.width = '360px';
+    dialogConfig1.height = '295px';
+
+    dialogConfig1.data = {
+      forceditem: this.forcedintoitem > 0 ? this.forcedintoitem : 0,
+      considerationsetitem : this.considerationsetitem > 0 ? this.considerationsetitem : 0
+    };
+    const dialogRef = this.dialog.open(QuicknoofitemComponent, dialogConfig1);
+    dialogRef.afterClosed().subscribe(
+      data => {
+      try {
+            if(data === undefined){
+                this.show_message_dialog = true;
+                this.showMessage();
+            }else{
+              this.QuickCalculation(data.numberchosen);
+              this.router.navigate(['admin/project/cell/chart/' + this.id])
+            }
+          } catch (e) {
+
+          }
+        }
+    );
+  }
+
+QuickCalculation(num: any){
+  const obj1: any = [];
+  var test1: any = [];
+  const opetimizedItem: any = [];
+  this.getAltsRecord();
+  this.dataArrayMatrix();
+  this.segArrayMatrix();
+  this.weightArrayMatrix();
+  localStorage.removeItem("chartData1");
+  var res = [];
+  console.log(539, this.alts);
+  let c = new Calc(this.alts, this.data_matrix, this.vol_matrix,this.weight, this.seg, 1, 500, 130);
+  res = c.CalculateParallel(1, true);
+  console.log(537,res[0]);
+  
+  for(var i = 0; i < res[0][1].length; i++){
+    var lastChar = res[0][2][i][0].substr(res[0][2][i][0].length - 2); // => "1"
+    obj1.push({id: Number(lastChar),item: res[0][2][i][0], value:res[0][1][i]});
+  }
+  console.log(609,obj1);
+  for(var i = 0; i < num; i++){
+     test1.push({value: obj1[i].id, val: obj1[i].value})
+  let c1 = new CalcInteractive(this.alts, this.data_matrix, this.data_matrix1, this.vol_matrix, this.weight, this.seg, 1, 500, 130,test1);
+  res = c1.CalculateParallel1(this.count_alts, num, false); 
+  console.log(627,res);
+  
+  opetimizedItem.push({item: obj1[i].item, value: res[28][0][0]})
  
+  //test1 = uniqueArray;
+  test1.forEach((e: any, index: any) => {
+    if(e.value === 29){
+      //delete test1[index]
+      test1.splice(test1.indexOf(index), 1);
+    }
+  });
+}
+
+localStorage.setItem("chartData1", JSON.stringify(opetimizedItem));
+ this.alts = [];
+}
+
+removeDuplicates(originalArray:any, prop: any) {
+  var newArray = [];
+  var lookupObject: any  = {};
+  for(var i in originalArray) {
+     lookupObject[originalArray[i][prop]] = originalArray[i];
+  }
+  for(i in lookupObject) {
+      newArray.push(lookupObject[i]);
+  }
+  return newArray;
+}
+
+displayStyle = "none";
+closePopup() {
+  this.displayStyle = "none";
+}
+data_matrix1: matrix6 = new matrix6(0, 0, 0);
   async dataArrayMatrix() : Promise<void>{
     //var data1 = JSON.parse(localStorage.getItem('data1'))
     this.list_row_data = this.data_01;
     //this.list_row_data = this.data_1;
     this.num_rows = this.list_row_data.length;
+    let data1: matrix6 = new matrix6(this.num_rows, this.count_alts + 1, 0,);
     let data: matrix = new matrix(this.num_rows, this.count_alts + 1, 0);
     let vol: matrix1 = new matrix1(this.num_rows, this.count_alts + 1, 0);
     let icol: number = 0;
@@ -578,12 +675,14 @@ export class SelectMenuComponent implements OnInit {
       icol = 0;
       for (var j = 2; j <= this.count_alts + 1; j++) {
         icol += 1;
+        data1._matrix[i - 1][icol - 1] = Math.round(this.list_row_data[i - 1][j - 1]);
         data._matrix[i - 1][icol - 1] = Math.round(this.list_row_data[i - 1][j - 1]);
         vol._matrix[i - 1][icol - 1] = Math.round(this.list_row_data[i - 1][j - 1]);
       }
     }
     this.data_matrix = data;
     this.vol_matrix = vol;
+    this.data_matrix1 = data1;
   }
   async segArrayMatrix() : Promise<void>{
     
@@ -623,6 +722,7 @@ export class SelectMenuComponent implements OnInit {
   }
 
   getAltsRecord(){
+    this.alts = [];
     //(let i = 0; i < this.alts_list.length; i++)
     // for (let i = 0; i < this.alts_list.length; i++) {
     //   var a: Alts = new Alts();
@@ -664,7 +764,8 @@ export class SelectMenuComponent implements OnInit {
       }
     }
   }
-  alts_arr = [
+ 
+  alts_arr: any = [
     
     {ID: 1, Include: 1, ShortDescription: 'Item 1',LongDescription: 'Item 1', CategoryIndex: 1, Category: 'Category 1', Consideration:1},
     {ID: 2, Include: 1, ShortDescription: 'Item 2',LongDescription: 'Item 2', CategoryIndex: 1, Category: 'Category 1', Consideration:1},

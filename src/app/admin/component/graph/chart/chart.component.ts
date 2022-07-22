@@ -12,6 +12,7 @@ import * as fs from 'file-saver';
 import { exportexcel } from './exportexcel';
 import {Chart} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { reduce } from 'rxjs/operators';
 Chart.register(ChartDataLabels)
 
 @Component({
@@ -99,9 +100,16 @@ export class ChartComponent implements OnInit {
   cellName: string;
   public static imgUrl: any;
 
+  // isShowchart1: boolean = false;
+  // isShowchart: boolean = false;
+  // barChartLabels11: string[];
+  // public barChartData11: any[] = [];
+
   async ngOnInit(): Promise<void> {
     this.exportlist = new exportexcel();
     this.result = JSON.parse(localStorage.getItem("chartData"));
+    console.log(111,this.result);
+    
     var project = await this.services.getCellByid(this.id).toPromise();
     this.projectid = project.projectId;
     this.listLink = "/admin/project/cell/" + this.projectid;
@@ -109,17 +117,33 @@ export class ChartComponent implements OnInit {
     this.chartlink = "/admin/project/cell/chart/"+ this.id;
     // this.loadData();
     // this.lloadData();
-    this.loadchartData();
+    let opetimizedChart = JSON.parse(localStorage.getItem("chartData1"));
+    
+    if(opetimizedChart == null){
+      // this.isShowchart = true;
+      // this.isShowchart1 = false;
+      this.loadchartData();
+      console.log(113,opetimizedChart);
+    }else{
+      // this.isShowchart = false;
+      // this.isShowchart1 = true;
+      this.loadchartOpetimized(opetimizedChart);
+    }
+
+    //this.loadchartData();
     this.itemlist=this.exportlist.itemreport();
     
     localStorage.setItem('report',JSON.stringify(this.itemlist));
+    if(this.isChart){
     const canvas = document.getElementById('ctx') as HTMLCanvasElement;
     this.chartimg = canvas.toDataURL("image/png");
     ChartComponent.imgUrl = canvas.toDataURL("image/png");
     localStorage.setItem("chart",this.chartimg);
-
+    }
     this.pName = localStorage.getItem('projectName');
     this.cellName = project.cellName;
+  
+    //console.log(144, this.chartimg);
   }
 
   result: any[] = [];
@@ -177,6 +201,31 @@ export class ChartComponent implements OnInit {
 
   public barChartData: any[] = [];
   public barChartData1: any[] = [];
+
+  loadchartOpetimized(items:any){
+    this.barChartLabels1 = new Array<string>();
+    let arr1: any[] = [];
+    let arr: any[] = [];
+    
+    items.sort(function(a: any, b: any){return a.value - b.value});
+    console.log(204,items);
+    for(var i = 0; i < items.length; i++){
+      this.barChartLabels1.push(items[i].item);
+      if(i == 0){
+        arr.push(parseFloat((items[i].value*100).toFixed(2)));
+        arr1.push(0);
+      }else{
+        let va = parseFloat(((items[i].value - items[i-1].value)*100).toFixed(2))
+        arr.push(Math.abs(va));
+        arr1.push(parseFloat((items[i-1].value*100).toFixed(2)));
+      }
+    }
+    this.barChartData1 = [{ data: arr1, barPercentage: 1.0, categoryPercentage: 1.0, backgroundColor: '#fff', hoverBackgroundColor: 'transparent',"label": "Initial Reach" },
+      { data: arr, barPercentage: 1.0, categoryPercentage: 1.0, "label": "Incremental Reach" }];
+      console.log(137,this.barChartLabels1);
+      console.log(138,this.barChartData1);
+  }
+
   loadchartData() {
     this.arrlength = this.result.length;
     let data1 : any = "";
@@ -320,11 +369,14 @@ export class ChartComponent implements OnInit {
       let cda5 = cda4 + data5;
       let cda6 = cda2 + data4;
       let cda7 = cda1 + data3;
+      console.log(360,data1);
+      
       
       this.barChartData1 = [{ data: [0, d1, d2, d3, d4, d5, d6, d7], barPercentage: 1.0, categoryPercentage: 1.0, backgroundColor: '#fff', hoverBackgroundColor: 'transparent',"label": "Initial Reach" }, { data: [data1, data2, data3, data4, data5, data6, data7, data8], barPercentage: 1.0, categoryPercentage: 1.0, "label": "Incremental Reach" }];
-  //this.barChartData1 = [{ data: [0, 10,20,30,40,50], barPercentage: 1.0, categoryPercentage: 1.0, backgroundColor: '#fff', hoverBackgroundColor: 'transparent',"label": "Initial Reach" },
+       //this.barChartData1 = [{ data: [0, 10,20,30,40,50], barPercentage: 1.0, categoryPercentage: 1.0, backgroundColor: '#fff', hoverBackgroundColor: 'transparent',"label": "Initial Reach" },
        //{ data: [22,44,74,80,85], barPercentage: 1.0, categoryPercentage: 1.0, "label": "Incremental Reach"}];
       console.log(315,this.barChartLabels1);
+      console.log(316,this.barChartData1);
 
       //[0, d1, d2, d3, d4, d5, d6, d7]  
   }
@@ -333,14 +385,14 @@ export class ChartComponent implements OnInit {
     const canvas = document.getElementById('ctx') as HTMLCanvasElement;
     this.chartimg = canvas.toDataURL("image/png");
     localStorage.setItem("chart",this.chartimg);
-    this.router.navigate(['/admin/project/cell/oneitem/' + this.id]);
+    //this.router.navigate(['/admin/project/cell/oneitem/' + this.id]);
   }
 
   twoitem(){
     const canvas = document.getElementById('ctx') as HTMLCanvasElement;
     this.chartimg = canvas.toDataURL("image/png");
     localStorage.setItem("chart",this.chartimg);
-    this.router.navigate(['/admin/project/cell/twoitems/' + this.id]);
+    //this.router.navigate(['/admin/project/cell/twoitems/' + this.id]);
   }
   threeitem(){
     const canvas = document.getElementById('ctx') as HTMLCanvasElement;
@@ -390,24 +442,48 @@ export class ChartComponent implements OnInit {
     localStorage.setItem("chart",this.chartimg);
     this.router.navigate(['/admin/project/cell/chartData/' + this.id]);
   }
-
-  async savereport(): Promise<void> {
-
-    this.reportforcount();
-    this.reportforchartData();
-    for (let i = 0; i < this.arrlength; i++) {
-      const cdata: chartData = {
-        items: this.barChartLabels2[i][0],
-        reach: this.d[i],
-        incrementalreach: this.data[i],
-        finalreach: this.pdata[i]
+  isChart: boolean = true;
+  async savereport(e: any, e1: any): Promise<void> {
+    this.isChart = e;
+    this.chartimg = e1;
+    this.exportlist = new exportexcel();
+    this.itemlist = this.exportlist.itemreport();
+    this.ngOnInit();
+    let optChart = JSON.parse(localStorage.getItem("chartData1"));
+    this.arrlength = this.result.length;
+    if(optChart == null){
+      this.reportforcount();
+      this.reportforchartData();
+      for (let i = 0; i < this.arrlength; i++) {
+        const cdata: chartData = {
+          items: this.barChartLabels2[i][0],
+          reach: this.d[i],
+          incrementalreach: this.data[i],
+          finalreach: this.pdata[i]
+        }
+        this.chartdatalist.push(cdata);
       }
-      this.chartdatalist.push(cdata);
+      //this.senddataforExcel();
+      this.generateExcel();
+    }else{
+    
+      this.reportforchartData();
+      for (let i = 0; i < this.arrlength; i++) {
+        const cdata: chartData = {
+          items: this.barChartLabels2[i][0],
+          reach: this.d[i],
+          incrementalreach: this.data[i],
+          finalreach: this.pdata[i]
+        }
+        this.chartdatalist.push(cdata);
+      }
+      //this.senddataforExcel();
+      this.generateOptExcel(optChart);
     }
-    //this.senddataforExcel();
-    this.generateExcel();
+    
   }
   async reportforcount(): Promise<void> {
+    
     for (let p = 0; p < this.result[0][2].length; p++) {
       var l = this.result[0][2][p][0];
       this.topcounter = [];
@@ -642,6 +718,8 @@ export class ChartComponent implements OnInit {
   barChartLabels2 : string[] = []; 
 
   async reportforchartData(): Promise<void> {
+    
+    this.arrlength = this.result.length;
     let dat1 = "";
     let dat2 = "";
     let dat3 = "";
@@ -765,6 +843,7 @@ export class ChartComponent implements OnInit {
   }
 
   generateExcel() {
+   
     const title = 'Chart graph';
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Chart');
@@ -772,8 +851,13 @@ export class ChartComponent implements OnInit {
     let titleRow = worksheet.addRow([title]);
     titleRow.font = { name: 'Comic Sans MS', family: 4, size: 16, underline: 'double', bold: true }
     worksheet.addRow([]);
-    const canvas = document.getElementById('ctx') as HTMLCanvasElement;
-    this.chartimg = canvas.toDataURL("image/png");
+    if(this.isChart){
+      const canvas = document.getElementById('ctx') as HTMLCanvasElement;
+      this.chartimg = canvas.toDataURL("image/png");
+    }else{
+      this.chartimg = localStorage.getItem("chart");
+    }
+    
     //Add Image
     let logo = workbook.addImage({
       base64: this.chartimg,
@@ -1076,6 +1160,85 @@ export class ChartComponent implements OnInit {
         }
     ];
 
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, 'Chart' + new Date().getTime() + '.xlsx');
+    })
+  }
+
+  generateOptExcel(daItem: any) {
+    const title = 'Chart graph';
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Chart');
+
+    let titleRow = worksheet.addRow([title]);
+    titleRow.font = { name: 'Comic Sans MS', family: 4, size: 16, underline: 'double', bold: true }
+    worksheet.addRow([]);
+
+    if(this.isChart){
+      const canvas = document.getElementById('ctx') as HTMLCanvasElement;
+      this.chartimg = canvas.toDataURL("image/png");
+    }else{
+      this.chartimg = localStorage.getItem("chart");
+    }
+
+    //this.chartimg = localStorage.getItem("chart"); 
+    let logo = workbook.addImage({
+      base64: this.chartimg,
+      extension: 'png',
+    });
+
+    worksheet.addImage(logo, 'B3:J18');
+    worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);
+    worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);
+    worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);
+    worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);
+    let p = [],q=[],r=[];
+    p.push("Final Reach");
+    q.push("Incremental Reach");
+    r.push("Initial Reach");
+
+    for (let i = 0; i < this.arrlength; i++) {
+      p.push(this.pdata[i]);
+      q.push(this.data[i]);
+      r.push(this.d[i]);
+    } 
+   
+    worksheet.addRow(p);
+    worksheet.addRow(q);
+    worksheet.addRow(r);
+    worksheet.getColumn(1).width = 17; 
+   
+    let worksheetChartData = workbook.addWorksheet('ChartData');
+    const header = ["Items", "Initial Reach", "Incremental Reach", "Final Reach"]
+    worksheetChartData.addRow(header);
+    worksheetChartData.columns = [
+      { key: 'items' },{key:'reach'},{key:'incrementalreach'},{key:'finalreach'}
+    ];
+    this.chartdatalist.forEach(function(item, index) {
+     // var items1 = parseFloat(item)
+      worksheetChartData.addRow(item);
+    })
+    
+    let worksheetitem  = workbook.addWorksheet((1)+"Item")
+      const header1 = ["Reach", "Frequency", "Item1"];
+      worksheetitem.addRow(header1);
+      worksheetitem.columns = [
+        { key: 'reach' },{key:'frequency'},{key:'item'}
+      ];
+     this.itemlist[0].forEach(function(item:any, index:any) {
+        if(index < daItem.length){
+          //var val = parseInt(item)
+          worksheetitem.addRow(item);
+        }
+      })
+      
+    workbook.views = [
+        {
+            x: 0, y: 0, width: 10000, height: 20000,
+            firstSheet: 0, activeTab: 0, visibility: 'visible'
+        }
+    ];
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       fs.saveAs(blob, 'Chart' + new Date().getTime() + '.xlsx');

@@ -9,6 +9,7 @@ import * as Excel from 'exceljs';
 import * as fs from 'file-saver';
 import { ChartComponent } from '../chart/chart.component';
 @Component({
+  providers: [ChartComponent],
   selector: 'app-data',
   templateUrl: './data.component.html',
   styles: [`
@@ -58,7 +59,13 @@ import { ChartComponent } from '../chart/chart.component';
   }
   table{
     width:100%;
-  }`
+  }
+  mat-table{
+    max-height: calc(100vh - 220px) !important;
+    height: 100%;
+    overflow-y: auto;
+  }
+  `
   ]
 })
 export class DataComponent implements OnInit {
@@ -86,14 +93,16 @@ export class DataComponent implements OnInit {
   isSecond: boolean = true;
   isThrid: boolean = true;
 
+  isShowleft: boolean = false;
+  isShowleft1: boolean = false;
+
   constructor(private route: ActivatedRoute,
     private services: PsolutionsService,
-              private router: Router) {
+              private router: Router, private child: ChartComponent) {
     this.route.params.subscribe(res => {
       this.id = res.id; 
     }); 
   }
-
 
   async ngOnInit(): Promise<void> {
     var project = await this.services.getCellByid(this.id).toPromise();
@@ -101,12 +110,21 @@ export class DataComponent implements OnInit {
     this.arrlength = this.result.length;
     this.charturl = true;
     this.itemlist = JSON.parse(localStorage.getItem('report'));
-    this.chartimg = localStorage.getItem("chart"); 
-    // const canvas = document.getElementById('ctx') as HTMLCanvasElement;
-    // this.chartimg = canvas.toDataURL("image/png");
-  }
+
+    let optChart = JSON.parse(localStorage.getItem("chartData1"));
+    if(optChart == null){
+     this.isShowleft = true;
+     this.isShowleft1 = false;
+    }else{
+     this.isShowleft = false;
+     this.isShowleft1 = true;
+    }
+}
 
   chart(value: any){
+    if(this.isChart){
+      this.child.oneitem();
+    }
     this.charturl = false;
     this.OneItem = false;
     this.TwoItem = false;
@@ -122,15 +140,20 @@ export class DataComponent implements OnInit {
     this.counturl = false;
    switch(value){
      case 'chart' :
+      this.isChart = true;
       this.charturl = true;
      break;
      case 'chartData' :
       this.chartDataurl = true;
+      this.isChart = false;
      break;
    }
-  }
+  } 
 
   details(value: any){
+    if(this.isChart){
+      this.child.oneitem();
+    }
     this.charturl = false;
     this.OneItem = false
     this.TwoItem = false;
@@ -143,6 +166,7 @@ export class DataComponent implements OnInit {
     this.NineItem = false;
     this.TenItem = false;
     this.chartDataurl = false;
+    this.isChart = false;
     this.counturl = false;
    switch(value){
      case 'item' :
@@ -179,23 +203,14 @@ export class DataComponent implements OnInit {
       this.counturl = true;
      break;
    }
-  }
+  } 
 
+  isChart: boolean = true;
   async savereport(): Promise<void> {
-    this.reportforcount();
-    this.reportforchartData();
-    for (let i = 0; i < this.arrlength; i++) {
-      const cdata: chartData = {
-        items: this.barChartLabels2[i][0],
-        reach: this.d[i],
-        incrementalreach: this.data[i],
-        finalreach: this.pdata[i],
-      }
-      this.chartdatalist.push(cdata);
-    }
-    //this.senddataforExcel();
-    this.generateExcel();
-  }
+   this.chartimg = localStorage.getItem("chart");
+   this.child.savereport(this.isChart, this.chartimg);
+  } 
+
   async reportforcount(): Promise<void> {
     for (let p = 0; p < this.result[0][2].length; p++) {
       var l = this.result[0][2][p][0];
@@ -226,6 +241,7 @@ export class DataComponent implements OnInit {
             c += 1;
           }
         }
+        
         const cou: topCounter = {
           itemindex: r,
           countfromtop100: count100,
@@ -235,7 +251,8 @@ export class DataComponent implements OnInit {
           countfromtop500: count500
         }
         this.topcounter.push(cou);
-      }
+      } 
+
       if (this.arrlength === 2) {
         const coun: any = {
           items: l,
@@ -420,7 +437,7 @@ export class DataComponent implements OnInit {
       }
     }
 
-  }
+  } 
 
   chartdatalist: chartData[] = [];
   countData: any[] = [];
@@ -495,6 +512,7 @@ export class DataComponent implements OnInit {
         }
       }
     }
+
     if (dat5 === '' && this.arrlength >= 5) {
       dat5 = ((this.result[4][1][0] - this.result[3][1][0])*100).toFixed(2).toString();
       for (let i = 0; i < this.result[4][2].length; i++) {
@@ -506,9 +524,10 @@ export class DataComponent implements OnInit {
           this.d.push((this.result[3][1][i]*100).toFixed(2).toString());
           this.data.push(dat5);
           break;
-        }
-      }
-    }
+        } 
+      } 
+    } 
+
     if (dat6 === '' && this.arrlength >= 6) {
       dat6 = ((this.result[5][1][0] - this.result[4][1][0])*100).toFixed(2).toString();
       for (let i = 0; i < this.result[5][2].length; i++) {
@@ -523,6 +542,7 @@ export class DataComponent implements OnInit {
         }
       }
     }
+
     if (dat7 === '' && this.arrlength >= 7) {
       dat7 = ((this.result[6][1][0] - this.result[5][1][0])*100).toFixed(2).toString();
       for (let i = 0; i < this.result[6][2].length; i++) {
@@ -537,6 +557,7 @@ export class DataComponent implements OnInit {
         }
       }
     }
+
     if (dat8 === '' && this.arrlength >= 8) {
       dat8 = ((this.result[7][1][0] - this.result[6][1][0])*100).toFixed(2).toString();
       for (let i = 0; i < this.result[7][2].length; i++) {
@@ -552,6 +573,7 @@ export class DataComponent implements OnInit {
       }
     }
   }
+  
   generateExcel() {
     const title = 'Chart graph';
     let workbook = new Workbook();
@@ -564,6 +586,7 @@ export class DataComponent implements OnInit {
     // const canvas = document.getElementById('ctx') as HTMLCanvasElement;
     // this.chartimg = canvas.toDataURL("image/png");
     //Add Image
+
     let logo = workbook.addImage({
       base64: this.chartimg,
       extension: 'png',
@@ -578,6 +601,7 @@ export class DataComponent implements OnInit {
     p.push("Final Reach");
     q.push("Incremental Reach");
     r.push("Initial Reach");
+
     for (let i = 0; i < this.arrlength; i++) {
       p.push(this.pdata[i]);
       q.push(this.data[i]);
@@ -627,6 +651,7 @@ export class DataComponent implements OnInit {
         {key: 'Item2_Count_from_Top400'},{key:'Item2_Count_from_Top500'}
       ];
     }
+
     if(this.arrlength == 3){
       let countheader = ["",
       "Count from Top100","Count from Top200","Count from Top300","Count from Top400","Count from Top500",
@@ -871,5 +896,76 @@ export class DataComponent implements OnInit {
       fs.saveAs(blob, 'Chart' + new Date().getTime() + '.xlsx');
     })
   }
- 
+
+  generateOptExcel(daItem: any) {
+    const title = 'Chart graph';
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Chart');
+
+    let titleRow = worksheet.addRow([title]);
+    titleRow.font = { name: 'Comic Sans MS', family: 4, size: 16, underline: 'double', bold: true }
+    worksheet.addRow([]);
+  
+    let logo = workbook.addImage({
+      base64: this.chartimg,
+      extension: 'png',
+    });
+
+    worksheet.addImage(logo, 'B3:J18');
+    worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);
+    worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);
+    worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);
+    worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);worksheet.addRow([]);
+    let p = [],q=[],r=[];
+    p.push("Final Reach");
+    q.push("Incremental Reach");
+    r.push("Initial Reach");
+
+    for (let i = 0; i < this.arrlength; i++) {
+      p.push(this.pdata[i]);
+      q.push(this.data[i]);
+      r.push(this.d[i]);
+    } 
+   
+    worksheet.addRow(p);
+    worksheet.addRow(q);
+    worksheet.addRow(r);
+    worksheet.getColumn(1).width = 17;
+   
+    let worksheetChartData = workbook.addWorksheet('ChartData');
+    const header = ["Items", "Initial Reach", "Incremental Reach", "Final Reach"]
+    worksheetChartData.addRow(header);
+    worksheetChartData.columns = [
+      { key: 'items' },{key:'reach'},{key:'incrementalreach'},{key:'finalreach'}
+    ];
+    this.chartdatalist.forEach(function(item, index) {
+     // var items1 = parseFloat(item)
+      worksheetChartData.addRow(item);
+    })
+    
+      let worksheetitem  = workbook.addWorksheet((1)+"Item")
+        const header1 = ["Reach", "Frequency", "Item1"];
+        worksheetitem.addRow(header1);
+        worksheetitem.columns = [
+          { key: 'reach' },{key:'frequency'},{key:'item'}
+        ];
+
+        this.itemlist[0].forEach(function(item:any, index:any) {
+          if(index < daItem.length){
+            //var val = parseInt(item)
+            worksheetitem.addRow(item);
+          }
+        })
+      
+    workbook.views = [
+        {
+            x: 0, y: 0, width: 10000, height: 20000,
+            firstSheet: 0, activeTab: 0, visibility: 'visible'
+        }
+    ];
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, 'Chart' + new Date().getTime() + '.xlsx');
+    })
+  }
 }

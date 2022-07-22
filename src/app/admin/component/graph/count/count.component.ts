@@ -872,11 +872,11 @@ export class CountComponent implements OnInit {
             firstSheet: 0, activeTab: 0, visibility: 'visible'
         }
     ];
+  
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       fs.saveAs(blob, 'Chart' + new Date().getTime() + '.xlsx');
     })
-
   }
 }
 export interface countData{

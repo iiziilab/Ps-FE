@@ -70,6 +70,7 @@ export class exportexcel {
                     let reachData = (this.result[d][1][c]* 100).toFixed(1);
                     var comma = item.split(',');
                     let freqReach = (parseFloat(this.result[d][3][c].toFixed(2)) / parseFloat(reachData) * 100).toFixed(2);
+                   
                     const p: threeitem = {
                         //reach: (this.result[d][1][c]* 100),//.toFixed(2).toString()+'%',
                         reach: parseFloat(reachData),
@@ -315,7 +316,8 @@ export class exportexcel {
                         incremental_reach7: parseFloat(((this.result[d][1][c] *100) - (Number(inc[0].incremental_reach1) + 
                         Number(inc[0].incremental_reach2) + Number(inc[0].incremental_reach3) + 
                         Number(inc[0].incremental_reach4) + Number(inc[0].incremental_reach5) + 
-                        Number(inc[0].incremental_reach6))).toFixed(1)), //.toFixed(2).toString()+'%'
+                        Number(inc[0].incremental_reach6))).toFixed(1)), 
+                        //.toFixed(2).toString()+'%'
                     }
                     list.push(p);
                 }
@@ -377,7 +379,7 @@ export class exportexcel {
                 }
             }
             itemlist.push(list);
-            console.log(371,itemlist[1]);
+            //console.log(371,itemlist[1]);
         }
         
         return itemlist;

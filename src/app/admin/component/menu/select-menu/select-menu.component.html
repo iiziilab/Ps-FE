@@ -36,7 +36,7 @@
                <button mat-stroked-button (click)="onConfiguration()">Configuration</button>
                <button mat-stroked-button (click)="onOptimized()">Optimization</button>
                <!-- <button mat-stroked-button>How To Use</button> -->
-               <button mat-stroked-button>Quick Optimization </button>
+               <button mat-stroked-button (click)="onQuickOptimized()">Quick Optimization </button>
                <button mat-stroked-button (click)="onInteractive()">Interactive</button>
             </div>
 
@@ -174,4 +174,29 @@
         <div class="btncenter">
         </div>
     </div>
+</div>
+
+
+
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog model-dil" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="title-h2"> Items </h2>
+      </div>
+      <div class="modal-body">
+        <p>How many items would you want in your bundle? </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Ok</button>
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

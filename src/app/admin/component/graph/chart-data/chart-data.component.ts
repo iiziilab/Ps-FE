@@ -118,20 +118,47 @@ export class ChartDataComponent implements OnInit {
     this.TenItem = "/admin/project/cell/tenitems/"+this.id;
     this.charturl = "/admin/project/cell/chart/"+this.id;
     this.counturl = "/admin/project/cell/count/" + this.id;
-    this.loadchartData();
-    for(let i = 0;i < this.arrlength;i++){
-      const cdata : chartData ={
-        items : this.barChartLabels1[i],
-        reach : this.d[i],
-        incrementalreach : this.data[i],
-        finalreach : this.pdata[i]
+    let opetimizedChart = JSON.parse(localStorage.getItem("chartData1"));
+    
+    if(opetimizedChart == null){
+      this.loadchartData();
+      for(let i = 0;i < this.arrlength;i++){
+        const cdata : chartData ={
+          items : this.barChartLabels1[i],
+          reach : this.d[i],
+          incrementalreach : this.data[i],
+          finalreach : this.pdata[i]
+        }
+        this.chartdatalist.push(cdata);
       }
-      this.chartdatalist.push(cdata);
+    }else{
+      //opetimizedChart.sort(function(a: any, b: any){return a.value - b.value});
+      for(let i = 0;i < opetimizedChart.length;i++){
+        let val = parseFloat(((opetimizedChart[i].value)*100).toFixed(2));
+        if(i == 0){
+          const cdata : chartData ={
+            items : opetimizedChart[i].item,
+            reach : 0.0,
+            incrementalreach : val,
+            finalreach : val
+          }
+          this.chartdatalist.push(cdata);
+        }else{
+          let val1 = parseFloat(((opetimizedChart[i].value - opetimizedChart[i-1].value) * 100).toFixed(2))
+          const cdata : chartData ={
+            items : opetimizedChart[i].item,
+            reach : val,
+            incrementalreach :  Math.abs(val1),
+            finalreach : val
+          }
+          this.chartdatalist.push(cdata);
+        }
+      }
     }
-  
+    //this.loadchartData();
     this.dataSource = new MatTableDataSource(this.chartdatalist);
-   
   }
+
   selectNode(node: any){
     let range  =  document.createRange();
     range.selectNodeContents(node)

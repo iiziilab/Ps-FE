@@ -5,6 +5,7 @@
         <div class="col-2 left-acc">
             <div class="row">
                 <div class="btnrptcontainer">
+
                     <mat-expansion-panel class="left-panle" [expanded]="isFirst">
                         <mat-expansion-panel-header>
                           <mat-panel-title> Chart</mat-panel-title>
@@ -17,7 +18,7 @@
                           </button>
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel class="left-panle" [expanded]="isSecond">
+                    <mat-expansion-panel *ngIf="isShowleft" class="left-panle" [expanded]="isSecond">
                         <mat-expansion-panel-header>
                           <mat-panel-title> Details</mat-panel-title>
                           </mat-expansion-panel-header>
@@ -55,6 +56,15 @@
                             Count
                         </button>
                     </mat-expansion-panel>
+
+                    <mat-expansion-panel *ngIf="isShowleft1" class="left-panle" [expanded]="isSecond">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title> Details</mat-panel-title>
+                          </mat-expansion-panel-header>
+                        <button class="button-panle" *ngIf="arrlength >= 1" (click)="details('item')">
+                            1 Item
+                        </button>
+                    </mat-expansion-panel>
                     
                     <mat-expansion-panel class="left-panle" [expanded]="isThrid">
                         <mat-expansion-panel-header>
@@ -64,11 +74,12 @@
                             Save
                         </button>
                     </mat-expansion-panel>
+
                 </div>
             </div>
         </div>
 
-         <div class="col-10 table-body">
+        <div class="col-10 table-body">
             <app-chart *ngIf="charturl"></app-chart>
             <app-chart-data *ngIf="chartDataurl"></app-chart-data>
             <app-count *ngIf="counturl"></app-count>
@@ -78,6 +89,6 @@
             <app-fouritems *ngIf="FourItem"></app-fouritems>
             <app-fiveitems *ngIf="FiveItem"></app-fiveitems>
             <app-sixitems *ngIf="SixItem"></app-sixitems>
-        </div>
+        </div> 
     </div>
 </div>

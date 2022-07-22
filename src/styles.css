@@ -625,4 +625,16 @@ thead {
       /* line-height: 10px; */
       height: 30%;
     }
+
+    .modal .model-dil{
+      max-width: 400px !important;
+      margin: 1.75rem auto;
+      top: 55px;
+    }
+    .mat-h2, .mat-title, .mat-typography h2 .title-h2 {
+      font: 500 20px/0px Roboto, "Helvetica Neue", sans-serif;
+      letter-spacing: normal;
+      margin: 0px 138px 0px;
+      /* align-content: center; */
+    }
     

@@ -127,7 +127,17 @@ export class OneitemsComponent implements OnInit {
     this.counturl = "/admin/project/cell/count/" + this.id;
     this.itemlist = JSON.parse(localStorage.getItem('report'));
     //this.itemlist = this.exportlist.itemreport();
-    this.dataSource = new MatTableDataSource(this.itemlist[0]);
+    let opetimizedChart = JSON.parse(localStorage.getItem("chartData1"));
+    
+    if(opetimizedChart == null){
+      this.dataSource = new MatTableDataSource(this.itemlist[0]);
+    }else{
+      let arr1: any[] = [];
+      for(var i = 0; i < opetimizedChart.length; i++){
+        arr1.push(this.itemlist[0][i]);
+      }
+      this.dataSource = new MatTableDataSource(arr1);
+    }
 
     this.pName = localStorage.getItem('projectName');
     this.cellName =project.cellName;
@@ -149,9 +159,7 @@ export class OneitemsComponent implements OnInit {
     this.editmode = !!this.selectedRow;
   }
 
-
  async savereport(): Promise<void> {
-    
     this.reportforcount();
     this.reportforchartData();
     for (let i = 0; i < this.arrlength; i++) {
@@ -166,7 +174,6 @@ export class OneitemsComponent implements OnInit {
     this.generateExcel();
     // const fileName = "Cell_1";
     // let wb = XLSX.utils.book_new();
-
     // for (let d = 0; d < this.arrlength; d++) {
     //   let ws = XLSX.utils.json_to_sheet(this.itemlist[d]);
     //   XLSX.utils.book_append_sheet(wb, ws, (d + 1) + 'Item');

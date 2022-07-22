@@ -86,7 +86,8 @@ import * as fs from 'file-saver';
 .table-mt{
   width: 100%;
   overflow-x: auto;
-}`
+}
+`
   ]
 })
 export class FouritemsComponent implements OnInit {

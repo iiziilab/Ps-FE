@@ -10,8 +10,8 @@ export const environment = {
   // responseType: 'id_token token',
   // scope: 'openid profile apiApp',
 
-    apiUrl: 'http://localhost:5000/api',
-    Url: 'http://localhost:5000'
+  apiUrl: 'http://localhost:5000/api',
+  Url: 'http://localhost:5000'
   // apiUrl: 'http://localhost:28787/api',
   // Url: 'http://localhost:28787/'
   //port: 5000
